@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * Query
  *
- * @author Bo Thinggaard
+ * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
 class Query {
 	
