@@ -13,6 +13,13 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class Query {
-	
+class Query extends QuerySub {
+	/**
+	 * Construct a new query.
+	 *
+	 * @param DataObjectInterface $class An instance of the class you want to get instances of, eventually.
+	 */
+	public function __construct(DataObjectInterface $class) {
+
+	}
 }
