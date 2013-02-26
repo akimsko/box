@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * StoreInterface
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 interface StoreInterface {
 	/**
@@ -20,6 +20,8 @@ interface StoreInterface {
 	 * @param Query $query
 	 * 
 	 * @return DataObjectInterface|null
+	 * 
+	 * @throws StoreException
 	 */
 	public function get(Query $query);
 	
@@ -29,6 +31,8 @@ interface StoreInterface {
 	 * @param Query $query
 	 * 
 	 * @return DataObjectCollection
+	 * 
+	 * @throws StoreException
 	 */
 	public function getAll(Query $query);
 	
@@ -36,6 +40,28 @@ interface StoreInterface {
 	 * Persist a single data object.
 	 * 
 	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject);
+	
+	/**
+	 * Persist a collection of data objects.
+	 * 
+	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @throws StoreException
+	 */
+	public function persistAll(DataObjectCollection $dataObjects);
+	
+	/**
+	 * Count stored records for query.
+	 * 
+	 * @param Query $query
+	 * 
+	 * @return integer
+	 * 
+	 * @throws StoreException
+	 */
+	public function count(Query $query);
 }

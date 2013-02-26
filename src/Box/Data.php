@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * Data
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 class Data {
 	

@@ -11,8 +11,8 @@ namespace \Box;
 /**
  * StoreException
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class StoreException {
+class StoreException extends \Exception {
 	
 }
