@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * DataObjectCollection
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 class DataObjectCollection {
 	

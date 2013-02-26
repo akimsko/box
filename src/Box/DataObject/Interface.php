@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * DataObjectInterface
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 interface DataObjectInterface {
 	

@@ -11,7 +11,7 @@ namespace \Box;
 /**
  * StoreIndexInterface
  *
- * @author Bo Thinggaard
+ * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 class StoreIndexInterface {
 	/**
