@@ -9,9 +9,17 @@
  */
 namespace \Box;
 /**
- * A base class for Query elements.
+ * Query
  *
- * @author Jens Riisom Schultz <jers@fynskemedier.dk>
+ * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryBase {
+class QueryOffset {
+	/**
+	 * @param integer $offset
+	 *
+	 * @return null
+	 */
+	public function offset($offset) {
+		return null;
+	}
 }

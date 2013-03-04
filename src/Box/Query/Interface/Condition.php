@@ -9,30 +9,22 @@
  */
 namespace \Box;
 /**
- * A sub query. Or a part of a query. Or something like that.
+ * Query
  *
- * @author Jens Riisom Schultz <jers@fynskemedier.dk>
+ * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QuerySub extends QueryAbstractCondition {
+interface QueryInterfaceCondition {
 	/**
 	 * Set the condition that the found objects should have a string property which starts with $value.
 	 *
 	 * @param string $property The property you want to set a condition on.
 	 * @param string $value    The string you want that property to start with.
-	 *
-	 * @return QueryCondition
 	 */
-	public function startsWith($property, $value) {
-		return new QueryCondition();
-	}
+	public function startsWith($property, $value);
 
 	/**
 	 * @param string                       $property The property you want to set a condition on.
 	 * @param string|float|boolean|integer $value    The string you want that property to start with.
-	 *
-	 * @return QueryCondition
 	 */
-	public function equals($property, $value) {
-		return new QueryCondition();
-	}
+	public function equals($property, $value);
 }
