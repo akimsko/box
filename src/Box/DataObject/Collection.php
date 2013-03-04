@@ -13,6 +13,35 @@ namespace \Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class DataObjectCollection {
+class DataObjectCollection implements \IteratorAggregate {
+	private $_dataObjects = array();
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param DataObjectCollection $dataObjects Copy collection.
+	 */
+	public function __construct(DataObjectCollection $dataObjects = null) {
+		if ($dataObjects) {
+			$this->_dataObjects = $dataObjects->toArray();
+		}
+	}
+	
+	/**
+	 * Get a copy as array.
+	 * 
+	 * @return DataObjectInterface[]
+	 */
+	public function toArray() {
+		return $this->_dataObjects;
+	}
+	
+	/**
+	 * Get an iterator.
+	 * 
+	 * @return \ArrayIterator
+	 */
+	public function getIterator() {
+		return new \ArrayIterator($this->_dataObjects);
+	}
 }

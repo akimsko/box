@@ -16,6 +16,20 @@ namespace \Box;
 interface DataObjectInterface {
 	
 	/**
+	 * Set the id.
+	 * 
+	 * @param integer $id
+	 */
+	public function setId($id);
+	
+	/**
+	 * Get the id
+	 * 
+	 * @return integer
+	 */
+	public function getId();
+	
+	/**
 	 * Turn this instance into a storable data package.
 	 * 
 	 * @return Data
