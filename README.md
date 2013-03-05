@@ -1,4 +1,4 @@
 box
 ===
 
-A data object store.
+An ODM (Object Document Mapper).
