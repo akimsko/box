@@ -13,26 +13,62 @@ namespace \Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class DataObjectCollection implements \IteratorAggregate {
+class DataObjectCollection implements \IteratorAggregate, \Countable {
+	/** @var DataObjectInterface[] */
 	private $_dataObjects = array();
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param DataObjectCollection $dataObjects Copy collection.
+	 * @param DataObjectInterface[] $dataObjects
 	 */
-	public function __construct(DataObjectCollection $dataObjects = null) {
-		if ($dataObjects) {
-			$this->_dataObjects = $dataObjects->toArray();
-		}
+	public function __construct(array $dataObjects = array()) {
+		$this->addAll($dataObjects);
 	}
 	
 	/**
-	 * Get a copy as array.
+	 * Add a data object.
+	 * 
+	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @return DataObjectCollection
+	 */
+	public function add(DataObjectInterface $dataObject) {
+		$this->_dataObjects[] = $dataObject;
+		return $this;
+	}
+	
+	/**
+	 * Add an array of data objects.
+	 * 
+	 * @param DataObjectInterface[] $dataObjects
+	 * 
+	 * @return DataObjectCollection
+	 */
+	public function addAll(array $dataObjects) {
+		foreach ($dataObjects as $dataObject) {
+			$this->add($dataObject);
+		}
+		return $this;
+	}
+	
+	/**
+	 * Get a data object.
+	 * 
+	 * @param integer $index
+	 * 
+	 * @return DataObjectInterface|null
+	 */
+	public function get($index) {
+		return isset($this->_dataObjects[$index]) ? $this->_dataObjects[$index] : null;
+	}
+	
+	/**
+	 * Get all data objects.
 	 * 
 	 * @return DataObjectInterface[]
 	 */
-	public function toArray() {
+	public function getAll() {
 		return $this->_dataObjects;
 	}
 	
@@ -43,5 +79,14 @@ class DataObjectCollection implements \IteratorAggregate {
 	 */
 	public function getIterator() {
 		return new \ArrayIterator($this->_dataObjects);
+	}
+
+	/**
+	 * Count data objects.
+	 * 
+	 * @return integer
+	 */
+	public function count() {
+		return count($this->_dataObjects);
 	}
 }
