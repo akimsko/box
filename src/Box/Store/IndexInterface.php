@@ -13,7 +13,7 @@ namespace \Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class StoreIndexInterface {
+interface StoreIndexInterface {
 	/**
 	 * Find a single id from query.
 	 * 
@@ -45,6 +45,20 @@ class StoreIndexInterface {
 	 * @throws StoreException
 	 */
 	public function indexAll(DataObjectCollection $dataObjects);
+	
+	/**
+	 * Remove an index.
+	 * 
+	 * @throws StoreException
+	 */
+	public function remove(DataObjectInterface $dataObject);
+	
+	/**
+	 * Remove indexes from collection.
+	 * 
+	 * @throws StoreException
+	 */
+	public function removeAll(DataObjectCollection $dataObjects);
 	
 	/**
 	 * Count entries for query.
