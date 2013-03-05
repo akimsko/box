@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class TokenOperationAndSub extends TokenOperation {
+class TokenOperationOrSub extends TokenOperation {
 	/** @var TokenCondition */
 	public $sub;
 }

@@ -8,6 +8,7 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 namespace Box;
+
 /**
  * Query
  *
@@ -23,7 +24,7 @@ class QueryOffset extends QueryBase {
 	 */
 	public function offset($offset) {
 		$this->_token = new TokenOffset();
-		$this->_token->offset;
+		$this->_token->offset = $offset;
 
 		return null;
 	}

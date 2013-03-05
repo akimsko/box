@@ -8,6 +8,7 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 namespace Box;
+
 /**
  * Query
  *
@@ -26,7 +27,7 @@ class QueryLimitOrOrderBy extends QueryBase {
 	 * @return QueryOffset
 	 */
 	public function limit($limit) {
-		$this->_token = new TokenLimit();
+		$this->_token        = new TokenLimit();
 		$this->_token->limit = $limit;
 
 		return $this->_child = new QueryOffset();

@@ -26,7 +26,9 @@ class QueryBase {
 	 * @return TokenBase
 	 */
 	protected function _getToken() {
-		$this->_token->nextToken = $this->_child->_getToken();
+		if ($this->_child instanceof QueryBase) {
+			$this->_token->nextToken = $this->_child->_getToken();
+		}
 
 		return $this->_token;
 	}

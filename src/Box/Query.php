@@ -16,6 +16,8 @@ namespace Box;
 class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	private $_aggregate;
 
+	private $_rootToken;
+
 	/**
 	 * Use ::create if you can find it. Otherwise this.
 	 *
@@ -24,8 +26,8 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	final public function __construct(DataObjectInterface $instance = null) {
 		$this->_aggregate = new QueryAggregateCondition();
 
-		$this->_token = new TokenRoot();
-		$this->_token->instance = $instance;
+		$this->_rootToken = new TokenRoot();
+		$this->_rootToken->instance = $instance;
 	}
 
 	/**
@@ -54,12 +56,9 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 		return $this->_child = new QueryOperation();
 	}
 
-	/**
-	 * Get the first token in the chain this query translates to.
-	 *
-	 * @return TokenRoot;
-	 */
 	public function getToken() {
-		return $this->_getToken();
+		$this->_rootToken->nextToken = $this->_getToken();
+
+		return $this->_rootToken;
 	}
 }
