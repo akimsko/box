@@ -37,11 +37,12 @@ interface DataObjectInterface {
 	public function toData();
 	
 	/**
-	 * Create a new instance from data package.
+	 * Populate this instance or create a new populated instance from data.
 	 * 
-	 * @param Data $data
+	 * @param Data    $data
+	 * @param boolean $new  Create a new instance.
 	 * 
 	 * @return static
 	 */
-	public static function fromData(Data $data);
+	public function fromData(Data $data, $new = true);
 }

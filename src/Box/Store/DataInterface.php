@@ -34,7 +34,7 @@ class StoreDataInterface {
 	 * 
 	 * @throws StoreException
 	 */
-	public function getAll($id);
+	public function getAll(array $ids);
 	
 	/**
 	 * Persist a data object.
@@ -49,4 +49,22 @@ class StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function persistAll(DataObjectCollection $dataObjects);
+	
+	/**
+	 * Delete a data object from store.
+	 * 
+	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @throws StoreException
+	 */
+	public function delete(DataObjectInterface $dataObject);
+	
+	/**
+	 * Delete a collection of data objects from store.
+	 * 
+	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @throws StoreException
+	 */
+	public function deleteAll(DataObjectCollection $dataObjects);
 }

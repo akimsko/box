@@ -55,6 +55,24 @@ interface StoreInterface {
 	public function persistAll(DataObjectCollection $dataObjects);
 	
 	/**
+	 * Delete a data object from store.
+	 * 
+	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @throws StoreException
+	 */
+	public function delete(DataObjectInterface $dataObject);
+	
+	/**
+	 * Delete a collection of data objects from store.
+	 * 
+	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @throws StoreException
+	 */
+	public function deleteAll(DataObjectCollection $dataObjects);
+	
+	/**
 	 * Count stored records for query.
 	 * 
 	 * @param Query $query
