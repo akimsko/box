@@ -17,36 +17,46 @@ class QueryAggregateOperation implements QueryInterfaceOperation {
 	/**
 	 * @param QuerySubCondition Optional.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenOperationAndSub
 	 */
 	public function andSub(QuerySubCondition $sub = null) {
-		return null;
+		$token = new TokenOperationAndSub();
+		$token->sub = $sub->getToken();
+
+		return $token;
 	}
 
 	/**
 	 * @param QuerySubCondition Optional.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenOperationOrSub
 	 */
 	public function orSub(QuerySubCondition $sub = null) {
-		return null;
+		$token = new TokenOperationOrSub();
+		$token->sub = $sub->getToken();
+
+		return $token;
 	}
 
 	/**
 	 * @param QuerySubCondition Optional.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenOperationAnd
 	 */
 	public function and_() {
-		return null;
+		$token = new TokenOperationAnd();
+
+		return $token;
 	}
 
 	/**
 	 * @param QuerySubCondition Optional.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenOperationOr
 	 */
 	public function or_() {
-		return null;
+		$token = new TokenOperationOr();
+
+		return $token;
 	}
 }
