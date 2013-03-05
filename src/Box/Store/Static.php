@@ -1,9 +1,11 @@
 <?php
 
 /*
- * This file is part of the box project.
+ * This file is part of the Box project.
+ * @link https://github.com/akimsko/box
  * 
- * Copyright Unpossible Systems I/S
+ * @copyright Copyright 2013 Bo Thinggaard & Jens Riisom Schultz
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 namespace Box;
 /**
@@ -12,6 +14,7 @@ namespace Box;
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 class StoreStatic implements StoreInterface {
+	/** @var Data[] The data store. */
 	private static $_dataStore = array();
 	
 	/**
