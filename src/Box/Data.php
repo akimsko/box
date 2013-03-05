@@ -59,7 +59,7 @@ class Data implements \ArrayAccess {
 	/**
 	 * Validate value.
 	 * 
-	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[] $value
+	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null $value
 	 * 
 	 * @return boolean Is valid.
 	 */
