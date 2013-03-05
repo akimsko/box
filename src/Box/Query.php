@@ -19,10 +19,13 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	/**
 	 * Use ::create if you can find it. Otherwise this.
 	 *
-	 * @param DataObjectInterface $class An instance of the class you want to get instances of, eventually.
+	 * @param DataObjectInterface $instance An instance of the class you want to get instances of, eventually.
 	 */
-	final public function __construct(DataObjectInterface $class = null) {
+	final public function __construct(DataObjectInterface $instance = null) {
 		$this->_aggregate = new QueryAggregateCondition();
+
+		$this->_token = new TokenRoot();
+		$this->_token->instance = $instance;
 	}
 
 	/**
@@ -34,8 +37,9 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	 * @return QueryOperation
 	 */
 	public function startsWith($property, $value) {
-		$this->_aggregate->startsWith($property, $value);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->startsWith($property, $value);
+
+		return $this->_child = new QueryOperation();
 	}
 
 	/**
@@ -45,7 +49,25 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	 * @return QueryOperation
 	 */
 	public function equals($property, $value) {
-		$this->_aggregate->equals($property, $value);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->equals($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Get the first token in the chain this query translates to.
+	 *
+	 * @return TokenRoot;
+	 */
+	public function getToken() {
+		return $this->_getToken();
+	}
+
+	public static function member() {
+
 	}
 }
+
+$q = new Query(new lol());
+$r = $q->getToken()->class;
+$r::fromData(new Data());

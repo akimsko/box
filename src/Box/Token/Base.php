@@ -9,19 +9,11 @@
  */
 namespace \Box;
 /**
- * Query
+ * Base class for Tokens.
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		return null;
-	}
+class TokenBase {
+	/** @var TokenBase The token that comes after this one. */
+	public $nextToken;
 }

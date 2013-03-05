@@ -13,15 +13,10 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		return null;
-	}
+class TokenOrderBy extends TokenBase {
+	/** @var string The direction to order by. 'asc' or 'desc' */
+	public $direction;
+
+	/** @var string The name of the property to order by. */
+	public $property;
 }

@@ -9,19 +9,11 @@
  */
 namespace \Box;
 /**
- * Query
+ * A root token. This should be the first element in a token chain returned from a Query.
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		return null;
-	}
+class TokenRoot extends TokenBase {
+	/** @var DataObjectInterface An instance of the class the token chain will query. */
+	public $instance;
 }

@@ -9,19 +9,14 @@
  */
 namespace \Box;
 /**
- * Query
+ * A condition token.
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		return null;
-	}
+class TokenCondition extends TokenBase {
+	/** @var string|float|boolean|integer|string[]|float[]|boolean[]|integer[] The value the property value is compared with. */
+	public $value;
+
+	/** @var string The name of the property the condition applies to. */
+	public $property;
 }

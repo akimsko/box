@@ -13,7 +13,7 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QuerySubOperation implements QueryInterfaceOperation {
+class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	private $_aggregate;
 
 	/**

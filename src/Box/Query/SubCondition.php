@@ -13,7 +13,7 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QuerySubCondition implements QueryInterfaceCondition {
+class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	private $_aggregate;
 
 	/**

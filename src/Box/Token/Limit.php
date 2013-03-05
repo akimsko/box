@@ -13,15 +13,7 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		return null;
-	}
+class TokenLimit extends TokenBase {
+	/** @var integer The limit. */
+	public $limit;
 }

@@ -13,15 +13,13 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryCondition implements QueryInterfaceCondition {
+class QueryCondition extends QueryBase implements QueryInterfaceCondition {
 	private $_aggregate;
 
 	/**
 	 * Use ::create if you can find it. Otherwise this.
-	 *
-	 * @param DataObjectInterface $class An instance of the class you want to get instances of, eventually.
 	 */
-	final public function __construct(DataObjectInterface $class = null) {
+	final public function __construct() {
 		$this->_aggregate = new QueryAggregateCondition();
 	}
 
@@ -34,8 +32,9 @@ class QueryCondition implements QueryInterfaceCondition {
 	 * @return QueryOperation
 	 */
 	public function startsWith($property, $value) {
-		$this->_aggregate->startsWith($property, $value);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->startsWith($property, $value);
+
+		return $this->_child = new QueryOperation();
 	}
 
 	/**
@@ -45,7 +44,8 @@ class QueryCondition implements QueryInterfaceCondition {
 	 * @return QueryOperation
 	 */
 	public function equals($property, $value) {
-		$this->_aggregate->equals($property, $value);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->equals($property, $value);
+
+		return $this->_child = new QueryOperation();
 	}
 }

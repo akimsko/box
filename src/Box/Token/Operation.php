@@ -9,19 +9,10 @@
  */
 namespace \Box;
 /**
- * Query
+ * An operation token.
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryLimitOrOrderBy {
-	const ASC = 'asc';
-	const DESC = 'desc';
+class TokenOperation extends TokenBase {
 
-	public function limit($limit) {
-		return new QueryOffset();
-	}
-
-	public function orderBy($property, $direction = self::ASC) {
-		return new QueryLimitOrOrderBy();
-	}
 }
