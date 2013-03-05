@@ -13,18 +13,6 @@ namespace \Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryOffset extends QueryBase {
-	/**
-	 * Offset the result set, effectively discarding the first $offset objects.
-	 *
-	 * @param integer $offset
-	 *
-	 * @return null
-	 */
-	public function offset($offset) {
-		$this->_token = new TokenOffset();
-		$this->_token->offset;
+class TokenConditionStartsWith extends TokenCondition {
 
-		return null;
-	}
 }

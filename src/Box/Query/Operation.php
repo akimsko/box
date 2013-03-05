@@ -29,8 +29,9 @@ class QueryOperation extends QueryLimitOrOrderBy {
 	 * @return QueryOperation
 	 */
 	public function andSub(QuerySubCondition $sub = null) {
-		$this->_aggregate->andSub($sub);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->andSub($sub);
+
+		return $this->_child = new QueryOperation();
 	}
 
 	/**
@@ -39,8 +40,9 @@ class QueryOperation extends QueryLimitOrOrderBy {
 	 * @return QueryOperation
 	 */
 	public function orSub(QuerySubCondition $sub = null) {
-		$this->_aggregate->orSub($sub);
-		return new QueryOperation();
+		$this->_token = $this->_aggregate->orSub($sub);
+
+		return $this->_child = new QueryOperation();
 	}
 
 	/**
@@ -49,8 +51,9 @@ class QueryOperation extends QueryLimitOrOrderBy {
 	 * @return QueryCondition
 	 */
 	public function and_() {
-		$this->_aggregate->and_();
-		return new QueryCondition();
+		$this->_token = $this->_aggregate->and_();
+
+		return $this->_child = new QueryCondition();
 	}
 
 	/**
@@ -59,7 +62,8 @@ class QueryOperation extends QueryLimitOrOrderBy {
 	 * @return QueryCondition
 	 */
 	public function or_() {
-		$this->_aggregate->or_();
-		return new QueryCondition();
+		$this->_token = $this->_aggregate->or_();
+
+		return $this->_child = new QueryCondition();
 	}
 }

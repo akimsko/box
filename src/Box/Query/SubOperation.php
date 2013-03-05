@@ -29,8 +29,9 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	 * @return QuerySubOperation
 	 */
 	public function andSub(QuerySubCondition $sub = null) {
-		$this->_aggregate->andSub($sub);
-		return new QuerySubOperation();
+		$this->_token = $this->_aggregate->andSub($sub);
+
+		return $this->_child = new QuerySubOperation();
 	}
 
 	/**
@@ -39,8 +40,9 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	 * @return QuerySubOperation
 	 */
 	public function orSub(QuerySubCondition $sub = null) {
-		$this->_aggregate->orSub($sub);
-		return new QuerySubOperation();
+		$this->_token = $this->_aggregate->orSub($sub);
+
+		return $this->_child = new QuerySubOperation();
 	}
 
 	/**
@@ -49,8 +51,9 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	 * @return QuerySubCondition
 	 */
 	public function and_() {
-		$this->_aggregate->and_();
-		return new QuerySubCondition();
+		$this->_token = $this->_aggregate->and_();
+
+		return $this->_child = new QuerySubCondition();
 	}
 
 	/**
@@ -59,7 +62,8 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	 * @return QuerySubCondition
 	 */
 	public function or_() {
-		$this->_aggregate->or_();
-		return new QuerySubCondition();
+		$this->_token = $this->_aggregate->or_();
+
+		return $this->_child = new QuerySubCondition();
 	}
 }

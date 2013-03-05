@@ -14,6 +14,7 @@ namespace \Box;
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
 class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
+	/** @var QueryAggregateCondition */
 	private $_aggregate;
 
 	/**
@@ -32,8 +33,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	 * @return QuerySubOperation
 	 */
 	public function startsWith($property, $value) {
-		$this->_aggregate->startsWith($property, $value);
-		return new QuerySubOperation();
+		$this->_token = $this->_aggregate->startsWith($property, $value);
+
+		return $this->_child = new QuerySubOperation();
 	}
 
 	/**
@@ -43,7 +45,17 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	 * @return QuerySubOperation
 	 */
 	public function equals($property, $value) {
-		$this->_aggregate->equals($property, $value);
-		return new QuerySubOperation();
+		$this->_token = $this->_aggregate->equals($property, $value);
+
+		return $this->_child = new QuerySubOperation();
+	}
+
+	/**
+	 * Get the first token in the chain this sub query condition translates to.
+	 *
+	 * @return TokenRoot;
+	 */
+	public function getToken() {
+		return $this->_getToken();
 	}
 }

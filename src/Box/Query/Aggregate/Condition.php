@@ -20,19 +20,27 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	 * @param string $property The property you want to set a condition on.
 	 * @param string $value    The string you want that property to start with.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenConditionStartsWith
 	 */
 	public function startsWith($property, $value) {
-		return null;
+		$token           = new TokenConditionStartsWith();
+		$token->property = $property;
+		$token->value    = $value;
+
+		return $token;
 	}
 
 	/**
 	 * @param string                       $property The property you want to set a condition on.
 	 * @param string|float|boolean|integer $value    The string you want that property to start with.
 	 *
-	 * @return TokenLolMaybe
+	 * @return TokenConditionEquals
 	 */
 	public function equals($property, $value) {
-		return null;
+		$token           = new TokenConditionEquals();
+		$token->property = $property;
+		$token->value    = $value;
+
+		return $token;
 	}
 }
