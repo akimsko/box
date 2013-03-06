@@ -21,6 +21,8 @@ class TokenRoot extends TokenBase {
 	 * Internal helper method for __toString;
 	 *
 	 * @param TokenBase $token
+	 *
+	 * @return string
 	 */
 	private static function _toStringHelper(TokenBase $token) {
 		$string = '';
@@ -51,15 +53,55 @@ class TokenRoot extends TokenBase {
 					$value = str_replace('"', '\\"', $token->value);
 					$string .= "\t{$token->property} THAT STARTS WITH \"$value\"";
 					break;
+				case $token instanceof TokenConditionEndsWith:
+					$value = str_replace('"', '\\"', $token->value);
+					$string .= "\t{$token->property} THAT ENDS WITH \"$value\"";
+					break;
+				case $token instanceof TokenConditionContains:
+					$value = str_replace('"', '\\"', $token->value);
+					$string .= "\t{$token->property} THAT CONTAINS \"$value\"";
+					break;
 				case $token instanceof TokenConditionEquals:
 					if (is_string($token->value)) {
 						$value = '"' . str_replace('"', '\\"', $token->value) . '"';
 					} else if (is_bool($token->value)) {
 						$value = $token->value ? 'true' : 'false';
+					} else if (is_array($token->value)) {
+						$value = '[' . implode(',', $token->value) . ']';
 					} else {
 						$value = $token->value;
 					}
 					$string .= "\t{$token->property} = $value";
+					break;
+				case $token instanceof TokenConditionNotEquals:
+					if (is_string($token->value)) {
+						$value = '"' . str_replace('"', '\\"', $token->value) . '"';
+					} else if (is_bool($token->value)) {
+						$value = $token->value ? 'true' : 'false';
+					} else if (is_array($token->value)) {
+						$value = '[' . implode(',', $token->value) . ']';
+					} else {
+						$value = $token->value;
+					}
+					$string .= "\t{$token->property} != $value";
+					break;
+				case $token instanceof TokenConditionGreaterThan:
+					$string .= "\t{$token->property} > {$token->value}";
+					break;
+				case $token instanceof TokenConditionGreaterThanOrEquals:
+					$string .= "\t{$token->property} >= {$token->value}";
+					break;
+				case $token instanceof TokenConditionLessThan:
+					$string .= "\t{$token->property} < {$token->value}";
+					break;
+				case $token instanceof TokenConditionLessThanOrEquals:
+					$string .= "\t{$token->property} <= {$token->value}";
+					break;
+				case $token instanceof TokenConditionIn:
+					$string .= "\t{$token->property} IN [" . implode(',', $token->value) . ']';
+					break;
+				case $token instanceof TokenConditionNotIn:
+					$string .= "\t{$token->property} NOT IN [" . implode(',', $token->value) . ']';
 					break;
 				case $token instanceof TokenOperationAnd:
 					$string .= "\n\tAND\n";
@@ -68,10 +110,10 @@ class TokenRoot extends TokenBase {
 					$string .= "\n\tOR\n";
 					break;
 				case $token instanceof TokenOperationOrSub:
-					$string .= "\n\tOR (\n" . str_replace("\t", "\t\t", self::_toStringHelper($token->sub)) . "\t)";
+					$string .= "\n\tOR (\n" . preg_replace('/\t([^\t])/', "\t\t\\1", self::_toStringHelper($token->sub)) . "\t)";
 					break;
 				case $token instanceof TokenOperationAndSub:
-					$string .= "\n\tAND (\n" . str_replace("\t", "\t\t", self::_toStringHelper($token->sub)) . "\t)";
+					$string .= "\n\tAND (\n" . preg_replace('/\t([^\t])/', "\t\t\\1", self::_toStringHelper($token->sub)) . "\t)";
 					break;
 				default:
 					$string = 'Unknown token type, ' . get_class($token) . ", encountered!\n";
