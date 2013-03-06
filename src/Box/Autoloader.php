@@ -32,23 +32,6 @@ class Autoloader {
 	}
 
 	/**
-	 * Converts a classpath to a valid filename.
-	 *
-	 * @param string $classPath The class path.
-	 *
-	 * @return string The classpath as a valid filename.
-	 */
-	private static function _classPathToFilename($classPath) {
-		static $filenames = array();
-
-		if (!isset($filenames[$classPath])) {
-			$filenames[$classPath] = preg_replace('/[\/\\\: ]/', '_', $classPath);
-		}
-
-		return $filenames[$classPath];
-	}
-
-	/**
 	 * Attempts to load the given class.
 	 *
 	 * @param string $name The name of the class to load.

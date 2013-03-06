@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class TokenCondition extends TokenBase {
+abstract class TokenCondition extends TokenBase {
 	/** @var string|float|boolean|integer|string[]|float[]|boolean[]|integer[] The value the property value is compared with. */
 	public $value;
 

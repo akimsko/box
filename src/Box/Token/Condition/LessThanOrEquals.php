@@ -15,4 +15,15 @@ namespace Box;
  */
 class TokenConditionLessThanOrEquals extends TokenCondition {
 
+	/**
+	 * Get the native translation of token.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * @param TokenBase|null       $previous
+	 * 
+	 * @return string The translated token.
+	 */
+	protected function _getNative(TokenNativeInterface $tokenTranslator, TokenBase $previous = null) {
+		return $tokenTranslator->lessThanOrEquals($this, $previous);
+	}
 }

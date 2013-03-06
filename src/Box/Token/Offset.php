@@ -16,4 +16,16 @@ namespace Box;
 class TokenOffset extends TokenBase {
 	/** @var integer The offset. */
 	public $offset;
+	
+	/**
+	 * Get the native translation of token.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * @param TokenBase|null       $previous
+	 * 
+	 * @return string The translated token.
+	 */
+	protected function _getNative(TokenNativeInterface $tokenTranslator, TokenBase $previous = null) {
+		return $tokenTranslator->offset($this, $previous);
+	}
 }

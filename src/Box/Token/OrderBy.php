@@ -19,4 +19,16 @@ class TokenOrderBy extends TokenBase {
 
 	/** @var string The name of the property to order by. */
 	public $property;
+	
+	/**
+	 * Get the native translation of token.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * @param TokenBase|null       $previous
+	 * 
+	 * @return string The translated token.
+	 */
+	protected function _getNative(TokenNativeInterface $tokenTranslator, TokenBase $previous = null) {
+		return $tokenTranslator->orderBy($this, $previous);
+	}
 }

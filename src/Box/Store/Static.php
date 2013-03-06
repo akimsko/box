@@ -9,7 +9,9 @@
  */
 namespace Box;
 /**
- * StoreStatic
+ * A simple static memory store.
+ * 
+ * This is meant for testing and prototyping only!
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
@@ -17,6 +19,19 @@ class StoreStatic implements StoreInterface {
 	/** @var Data[] The data store. */
 	private static $_dataStore = array();
 	
+	/** @var TokenNativeStoreStatic The native token translator. */
+	private static $_translator;
+	
+	/**
+	 * Get the native token translator.
+	 * 
+	 * @return TokenNativeStoreStatic
+	 */
+	private static function _getTranslator() {
+		return self::$_translator ? self::$_translator : self::$_translator = new TokenNativeStoreStatic();
+	}
+
+
 	/**
 	 * Get the next unused store index.
 	 * 
@@ -73,9 +88,9 @@ class StoreStatic implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function get(Query $query) {
-		
+		echo $query->getToken()->buildNative(self::_getTranslator());
 	}
-
+	
 	/**
 	 * Get a collection of data objects from query.
 	 * 

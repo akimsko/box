@@ -16,6 +16,18 @@ namespace Box;
 class TokenRoot extends TokenBase {
 	/** @var DataObjectInterface An instance of the class the token chain will query. */
 	public $instance;
+	
+	/**
+	 * Get the native translation of token.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * @param TokenBase|null       $previous
+	 * 
+	 * @return string The translated token.
+	 */
+	protected function _getNative(TokenNativeInterface $tokenTranslator, TokenBase $previous = null) {
+		return $tokenTranslator->root($this, $previous);
+	}
 
 	/**
 	 * Internal helper method for __toString;

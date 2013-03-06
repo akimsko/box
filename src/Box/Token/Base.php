@@ -13,7 +13,37 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class TokenBase {
+abstract class TokenBase {
 	/** @var TokenBase The token that comes after this one. */
 	public $nextToken;
+	
+	/**
+	 * Build a native query from tokens.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * 
+	 * @return string The native query.
+	 */
+	public function buildNative(TokenNativeInterface $tokenTranslator) {
+		$string = '';
+		$previousToken = null;
+		$token = $this;
+		
+		do {
+			$string .= $token->_getNative($tokenTranslator, $previousToken);
+			$previousToken = $token;
+		} while ($token = $token->nextToken);
+
+		return $string;
+	}
+	
+	/**
+	 * Get the native translation of token.
+	 * 
+	 * @param TokenNativeInterface $tokenTranslator
+	 * @param TokenBase|null       $previous
+	 * 
+	 * @return string The translated token.
+	 */
+	abstract protected function _getNative(TokenNativeInterface $tokenTranslator, TokenBase $previous = null);
 }

@@ -36,8 +36,24 @@ class Data implements \ArrayAccess {
 	 */
 	public function __construct(array $properties = null) {
 		if ($properties) {
-			$this->setAll($properties);
+			$this->putAll($properties);
 		}
+	}
+	
+	
+	/**
+	 * Set a property by name.
+	 * 
+	 * @param string $name
+	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null $value
+	 * 
+	 * @throws \InvalidArgumentException
+	 * 
+	 * @return Data
+	 */
+	public function put($name, $value) {
+		$this->_set($name, $value);
+		return $this;
 	}
 	
 	/**
@@ -45,10 +61,22 @@ class Data implements \ArrayAccess {
 	 * 
 	 * @param array $properties Properties in key => value form.
 	 */
-	public function setAll(array $properties) {
+	public function putAll(array $properties) {
 		foreach ($properties as $key => $value) {
 			$this->offsetSet($key, $value);
 		}
+	}
+	
+	/**
+	 * Remove (unset) a property.
+	 * 
+	 * @param string $name
+	 * 
+	 * @return Data
+	 */
+	public function remove($name) {
+		unset($this->_properties[$name]);
+		return $this;
 	}
 	
 	/**
@@ -153,6 +181,26 @@ class Data implements \ArrayAccess {
 	 */
 	public function offsetGet($offset) {
 		return isset($this->_properties[$offset]) ? $this->_properties[$offset] : null;
+	}
+	
+	/**
+	 * Check if property is set.
+	 * 
+	 * @param string $name
+	 * 
+	 * @return boolean Is set.
+	 */
+	public function __isset($name) {
+		return isset($this->_properties[$offset]);
+	}
+	
+	/**
+	 * Unset property.
+	 * 
+	 * @param string $name
+	 */
+	public function __unset($name) {
+		unset($this->_properties[$name]);
 	}
 	
 	/**

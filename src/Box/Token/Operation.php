@@ -13,6 +13,6 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class TokenOperation extends TokenBase {
+abstract class TokenOperation extends TokenBase {
 
 }
