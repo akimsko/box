@@ -31,7 +31,46 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	}
 
 	/**
-	 * Set the condition that the found objects should have a string property which starts with $value.
+	 * Tokenize this query. For internal use. But may be useful for debugging.
+	 *
+	 * @return TokenRoot
+	 */
+	public function getToken() {
+		$this->_rootToken->nextToken = $this->_getToken();
+
+		return $this->_rootToken;
+	}
+
+	/**
+	 * Set the condition that a string property must contain the given substring.
+	 *
+	 * @param string $property The property you want to set a condition on.
+	 * @param string $value    The string you want that property to contain.
+	 *
+	 * @return QueryOperation
+	 */
+	public function contains($property, $value) {
+		$this->_token = $this->_aggregate->contains($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a string property must end with the given substring.
+	 *
+	 * @param string $property The property you want to set a condition on.
+	 * @param string $value    The string you want that property to end with.
+	 *
+	 * @return QueryOperation
+	 */
+	public function endsWith($property, $value) {
+		$this->_token = $this->_aggregate->endsWith($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a string property must start with the given substring.
 	 *
 	 * @param string $property The property you want to set a condition on.
 	 * @param string $value    The string you want that property to start with.
@@ -45,8 +84,10 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	}
 
 	/**
-	 * @param string                       $property The property you want to set a condition on.
-	 * @param string|float|boolean|integer $value    The string you want that property to start with.
+	 * Set the condition that a property must have a given value.
+	 *
+	 * @param string                                                                 $property The property you want to set a condition on.
+	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null $value    The value the property should have to satisfy the condition.
 	 *
 	 * @return QueryOperation
 	 */
@@ -56,9 +97,101 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 		return $this->_child = new QueryOperation();
 	}
 
-	public function getToken() {
-		$this->_rootToken->nextToken = $this->_getToken();
+	/**
+	 * Set the condition that a property must not have a given value.
+	 *
+	 * @param string                                                                 $property The property you want to set a condition on.
+	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null $value    The value the property should not have to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function notEquals($property, $value) {
+		$this->_token = $this->_aggregate->notEquals($property, $value);
 
-		return $this->_rootToken;
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a numerical property must be greater than a given value.
+	 *
+	 * @param string        $property The property you want to set a condition on.
+	 * @param float|integer $value    The value the property should be greater than to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function greaterThan($property, $value) {
+		$this->_token = $this->_aggregate->greaterThan($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a numerical property must be greater than or equal to a given value.
+	 *
+	 * @param string        $property The property you want to set a condition on.
+	 * @param float|integer $value    The value the property should be greater than or equal to to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function greaterThanOrEquals($property, $value) {
+		$this->_token = $this->_aggregate->greaterThanOrEquals($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a numerical property must be greater than a given value.
+	 *
+	 * @param string        $property The property you want to set a condition on.
+	 * @param float|integer $value    The value the property should be less than to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function lessThan($property, $value) {
+		$this->_token = $this->_aggregate->lessThan($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a numerical property must be greater than or equal to a given value.
+	 *
+	 * @param string        $property The property you want to set a condition on.
+	 * @param float|integer $value    The value the property should be less than or equal to to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function lessThanOrEquals($property, $value) {
+		$this->_token = $this->_aggregate->lessThanOrEquals($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a property must be equal to any value in a given set.
+	 *
+	 * @param string                               $property The property you want to set a condition on.
+	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should be equal to any of to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function in($property, $value) {
+		$this->_token = $this->_aggregate->in($property, $value);
+
+		return $this->_child = new QueryOperation();
+	}
+
+	/**
+	 * Set the condition that a property must not be equal to any value in a given set.
+	 *
+	 * @param string                               $property The property you want to set a condition on.
+	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should not be equal to any of to satisfy the condition.
+	 *
+	 * @return QueryOperation
+	 */
+	public function notIn($property, $value) {
+		$this->_token = $this->_aggregate->notIn($property, $value);
+
+		return $this->_child = new QueryOperation();
 	}
 }

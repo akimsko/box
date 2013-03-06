@@ -15,9 +15,9 @@ namespace Box;
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
 class QueryLimitOrOrderBy extends QueryBase {
-	const ASC = 'asc';
+	const ASC = 'ASC';
 
-	const DESC = 'desc';
+	const DESC = 'DESC';
 
 	/**
 	 * Limit the result set.
