@@ -22,12 +22,34 @@ class Data implements \ArrayAccess {
 	
 	/** @var array Valid types. */
 	private static $_types = array(
-		'integer',
-		'string',
-		'double',
-		'boolean',
-		'NULL'
+		'integer' => 'integer',
+		'string'  => 'string',
+		'double'  => 'double',
+		'boolean' => 'boolean',
+		'NULL'    => 'NULL'
 	);
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param array $properties Initial properties in key => value form.
+	 */
+	public function __construct(array $properties = null) {
+		if ($properties) {
+			$this->setAll($properties);
+		}
+	}
+	
+	/**
+	 * Set properties by array of key => values.
+	 * 
+	 * @param array $properties Properties in key => value form.
+	 */
+	public function setAll(array $properties) {
+		foreach ($properties as $key => $value) {
+			$this->offsetSet($key, $value);
+		}
+	}
 	
 	/**
 	 * Validate array.
@@ -43,7 +65,7 @@ class Data implements \ArrayAccess {
 		
 		$type = gettype($entries[0]);
 		
-		if (!in_array($type, self::$_types)) {
+		if (!isset(self::$_types[$type])) {
 			return false;
 		}
 		
@@ -67,9 +89,7 @@ class Data implements \ArrayAccess {
 		if (is_array($value)) {
 			return self::_isArrayValid($value);
 		}
-		
-		return in_array(gettype($value), self::$_types);
-		
+		return isset(self::$_types[gettype($value)]);
 	}
 	
 	/**
