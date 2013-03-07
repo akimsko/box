@@ -17,15 +17,17 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must contain the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to contain.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to contain.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return TokenConditionContains
 	 */
-	public function contains($property, $value) {
+	public function contains($property, $value, $caseSensitive = false) {
 		$token = new TokenConditionContains();
 		$token->property = $property;
 		$token->value = $value;
+		$token->caseSensitive = $caseSensitive;
 
 		return $token;
 	}
@@ -33,15 +35,17 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must end with the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to end with.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to end with.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return TokenConditionEndsWith
 	 */
-	public function endsWith($property, $value) {
+	public function endsWith($property, $value, $caseSensitive = false) {
 		$token = new TokenConditionEndsWith();
 		$token->property = $property;
 		$token->value = $value;
+		$token->caseSensitive = $caseSensitive;
 
 		return $token;
 	}
@@ -49,15 +53,17 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must start with the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to start with.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to start with.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return TokenConditionStartsWith
 	 */
-	public function startsWith($property, $value) {
+	public function startsWith($property, $value, $caseSensitive = false) {
 		$token = new TokenConditionStartsWith();
 		$token->property = $property;
 		$token->value = $value;
+		$token->caseSensitive = $caseSensitive;
 
 		return $token;
 	}

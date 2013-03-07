@@ -26,12 +26,13 @@ class QueryCondition extends QueryBase implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must contain the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to contain.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to contain.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return QueryOperation
 	 */
-	public function contains($property, $value) {
+	public function contains($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->contains($property, $value);
 
 		return $this->_child = new QueryOperation();
@@ -40,12 +41,13 @@ class QueryCondition extends QueryBase implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must end with the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to end with.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to end with.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return QueryOperation
 	 */
-	public function endsWith($property, $value) {
+	public function endsWith($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->endsWith($property, $value);
 
 		return $this->_child = new QueryOperation();
@@ -54,12 +56,13 @@ class QueryCondition extends QueryBase implements QueryInterfaceCondition {
 	/**
 	 * Set the condition that a string property must start with the given substring.
 	 *
-	 * @param string $property The property you want to set a condition on.
-	 * @param string $value    The string you want that property to start with.
+	 * @param string  $property      The property you want to set a condition on.
+	 * @param string  $value         The string you want that property to start with.
+	 * @param boolean $caseSensitive
 	 *
 	 * @return QueryOperation
 	 */
-	public function startsWith($property, $value) {
+	public function startsWith($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->startsWith($property, $value);
 
 		return $this->_child = new QueryOperation();

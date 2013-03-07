@@ -38,7 +38,14 @@ class StoreStatic implements StoreInterface {
 	 * @return integer The next index.
 	 */
 	private static function _getNextIndex() {
+		if (!self::$_dataStore) {
+			return 1;
+		}
 		return max(array_keys(self::$_dataStore)) + 1;
+	}
+	
+	public function dump() {
+		var_dump(self::$_dataStore);
 	}
 	
 	/**
@@ -47,19 +54,15 @@ class StoreStatic implements StoreInterface {
 	 * @param Query $query
 	 * 
 	 * @return integer
-	 * 
-	 * @throws StoreException
 	 */
 	public function count(Query $query) {
-		
+		return count($this->_createResultSet($query));
 	}
 
 	/**
 	 * Delete a data object from store.
 	 * 
 	 * @param DataObjectInterface $dataObject
-	 * 
-	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject) {
 		unset(self::$_dataStore[$dataObject->getId()]);
@@ -69,8 +72,6 @@ class StoreStatic implements StoreInterface {
 	 * Delete a collection of data objects from store.
 	 * 
 	 * @param DataObjectCollection $dataObjects
-	 * 
-	 * @throws StoreException
 	 */
 	public function deleteAll(DataObjectCollection $dataObjects) {
 		foreach ($dataObjects as $dataObject) {
@@ -84,11 +85,14 @@ class StoreStatic implements StoreInterface {
 	 * @param Query $query
 	 * 
 	 * @return DataObjectInterface|null
-	 * 
-	 * @throws StoreException
 	 */
 	public function get(Query $query) {
-		echo $query->getToken()->buildNative(self::_getTranslator());
+		$items = $this->_createResultSet($query);
+		if ($item = array_shift($items)) {
+			$item = $item->toArrayCopy();
+			$item = $query->getToken()->instance->fromData($item, false);
+		}
+		return $item;
 	}
 	
 	/**
@@ -97,19 +101,38 @@ class StoreStatic implements StoreInterface {
 	 * @param Query $query
 	 * 
 	 * @return DataObjectCollection
-	 * 
-	 * @throws StoreException
 	 */
 	public function getAll(Query $query) {
+		$datas = new DataObjectCollection();
+		foreach ($this->_createResultSet($query) as $item) {
+			$item = $item->toArrayCopy();
+			$datas->add($query->getToken()->instance->fromData($item));
+		}
+		return $datas;
+	}
+	
+	/**
+	 * 
+	 * @param Query $query
+	 * 
+	 * @return Data[]
+	 */
+	private function _createResultSet(Query $query) {
+		$token = $query->getToken();
 		
+		$expression = $token->buildNative(self::_getTranslator()) . ';';
+		
+		$result = array_filter(self::$_dataStore, function($i) use ($expression) {
+			return eval($expression);
+		});
+		
+		return $result === null ? array() : $result;
 	}
 
 	/**
 	 * Persist a single data object.
 	 * 
 	 * @param DataObjectInterface $dataObject
-	 * 
-	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject) {
 		if (!$dataObject->getId()) {
@@ -122,8 +145,6 @@ class StoreStatic implements StoreInterface {
 	 * Persist a collection of data objects.
 	 * 
 	 * @param DataObjectCollection $dataObjects
-	 * 
-	 * @throws StoreException
 	 */
 	public function persistAll(DataObjectCollection $dataObjects) {
 		foreach ($dataObjects as $dataObject) {

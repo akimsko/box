@@ -26,7 +26,7 @@ class TokenNativeStoreStatic implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function contains(TokenConditionContains $token, TokenBase $previous = null) {
-		return 'strpos($i[\'' . $token->property . '\'] ,\'' . $token->value . '\') !== false';
+		return 'str' . ($token->caseSensitive ? '' : 'i') . 'pos($i[\'' . $token->property . '\'] ,\'' . $token->value . '\') !== false';
 	}
 
 	/**
@@ -38,7 +38,7 @@ class TokenNativeStoreStatic implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function endsWidth(TokenConditionEndsWith $token, TokenBase $previous = null) {
-		return 'preg_match(\'/' . preg_quote($token->value) . '$/\', $i[\'' . $token->property . '\'])';
+		return 'preg_match(\'/' . preg_quote($token->value) . '$/' . ($token->caseSensitive ? '' : 'i') . '\', $i[\'' . $token->property . '\'])';
 	}
 
 	/**
@@ -216,7 +216,7 @@ class TokenNativeStoreStatic implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function startsWith(TokenConditionStartsWith $token, TokenBase $previous = null) {
-		return 'preg_match(\'/^' . preg_quote($token->value) . '/\', $i[\'' . $token->property . '\'])';
+		return 'preg_match(\'/^' . preg_quote($token->value) . '/' . ($token->caseSensitive ? '' : 'i') . '\', $i[\'' . $token->property . '\'])';
 	}
 
 	/**

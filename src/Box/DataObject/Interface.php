@@ -39,10 +39,10 @@ interface DataObjectInterface {
 	/**
 	 * Populate this instance or create a new populated instance from data.
 	 * 
-	 * @param array   $data Data in key => value form.
-	 * @param boolean $new  Create a new instance.
+	 * @param array   &$data Data in key => value form.
+	 * @param boolean $new   Create a new instance.
 	 * 
 	 * @return static
 	 */
-	public function fromData(array $data, $new = true);
+	public function fromData(array &$data, $new = true);
 }

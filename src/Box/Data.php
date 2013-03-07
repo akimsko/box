@@ -132,12 +132,12 @@ class Data implements \ArrayAccess {
 	/**
 	 * Set a property.
 	 * 
-	 * @param string $name
-	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null $value
+	 * @param string                                                                 &$name
+	 * @param string|float|boolean|integer|string[]|float[]|boolean[]|integer[]|null &$value
 	 * 
 	 * @throws \InvalidArgumentException
 	 */
-	private function _set($name, $value) {
+	private function _set(&$name, &$value) {
 		if ($name === null) {
 			throw new \InvalidArgumentException('Property name may not be null.');
 		}

@@ -14,6 +14,7 @@ namespace Box;
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
 class TokenConditionEndsWith extends TokenCondition {
+	public $caseSensitive;
 
 	/**
 	 * Get the native translation of token.
