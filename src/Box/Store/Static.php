@@ -88,6 +88,7 @@ class StoreStatic implements StoreInterface {
 	 */
 	public function get(Query $query) {
 		$items = $this->_createResultSet($query);
+		$items = self::_applyOrderAndLimit($query->getToken(), $items);
 		if ($item = array_shift($items)) {
 			$item = $item->toArrayCopy();
 			$item = $query->getToken()->instance->fromData($item, false);
@@ -104,7 +105,8 @@ class StoreStatic implements StoreInterface {
 	 */
 	public function getAll(Query $query) {
 		$datas = new DataObjectCollection();
-		foreach ($this->_createResultSet($query) as $item) {
+		$result = $this->_createResultSet($query);
+		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {
 			$item = $item->toArrayCopy();
 			$datas->add($query->getToken()->instance->fromData($item));
 		}
@@ -126,7 +128,7 @@ class StoreStatic implements StoreInterface {
 			return eval($expression);
 		});
 		
-		return $result === null ? array() : $result;
+		return $result === null ? array() : array_values($result);
 	}
 
 	/**
@@ -150,5 +152,87 @@ class StoreStatic implements StoreInterface {
 		foreach ($dataObjects as $dataObject) {
 			$this->persist($dataObject);
 		}
+	}
+	
+	/**
+	 * Retrofit orderBy and limit.
+	 * 
+	 * @param TokenRoot $token  The root token.
+	 * @param array     $result The result to apply order and limit to.
+	 * 
+	 * @return type The ordered and limited array.
+	 */
+	private static function _applyOrderAndLimit(TokenRoot $token, array &$result) {
+		$limit       = null;
+		$offset      = null;
+		$sortFields  = array();
+		
+		do {
+			switch (true) {
+				case $token instanceof TokenOrderBy:
+					$sortFields[] = array(
+						'name'      => $token->property,
+						'direction' => ($token->direction == QueryLimitOrOrderBy::ASC) ? SORT_ASC : SORT_DESC
+					);
+					break;
+				case $token instanceof TokenLimit:
+					$limit = $token->limit;
+					break;
+				case $token instanceof TokenOffset:
+					$offset = $token->offset;
+					break;
+			}
+		} while ($token = $token->nextToken);
+		
+		if ($sortFields) {
+			$result = self::_multiSort($result, $sortFields);
+		}
+		
+		if ($offset !== null) {
+			$result = array_slice($result, $offset, $limit);
+		} else if ($limit !== null) {
+			$result = array_slice($result, 0, $limit);
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * Sort an array by multiple fields.
+	 * 
+	 * Apologies for this. Php's array_multisort is really awkward.
+	 * This will do for now. Maybe someone can cook up something better? :)
+	 * 
+	 * @param array $array  The array to sort.
+	 * @param array $fields The fields to sort by (array of array('name' => 'fieldName1', 'direction' => SORT_ASC|SORT_DESC))
+	 * 
+	 * @return array The sorted array.
+	 */
+	private static function _multiSort(array &$array, array $fields) {
+		$sortColumns   = array();
+		$sortArguments = array();
+		$i = 0;
+		foreach ($array as &$entry) {
+			foreach ($fields as &$field) {
+				if (!isset($sortColumns[$field['name']])) {
+					$sortColumns[$field['name']] = array();
+					$sortArguments[] = &$sortColumns[$field['name']];
+					$sortArguments[] = $field['direction'];
+				}
+				$sortColumns[$field['name']][$i . '_'] = $entry[$field['name']];
+			}
+			$i++;
+		}
+
+		$sortedResult = array();
+		
+		if ($sortArguments) {
+			call_user_func_array('array_multisort', $sortArguments);
+			foreach (array_keys(array_shift($sortColumns)) as $sortedKey) {
+				$sortedResult[] = $array[(int)$sortedKey];
+			}
+		}
+		
+		return $sortedResult;
 	}
 }

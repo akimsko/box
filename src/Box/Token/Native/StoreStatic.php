@@ -314,7 +314,11 @@ class TokenNativeStoreStatic implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function root(TokenRoot $token, TokenBase $previous = null) {
-		return 'return ';
+		$string = 'return ';
+		if (!$token->nextToken instanceof TokenCondition) {
+			$string .= 'true';
+		}
+		return $string;
 	}
 
 }
