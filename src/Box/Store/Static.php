@@ -51,11 +51,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return integer
 	 */
-	public function count(Query $query) {
+	public function count(QueryBase $query) {
 		return count($this->_createResultSet($query));
 	}
 
@@ -82,11 +82,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
 	 */
-	public function get(Query $query) {
+	public function get(QueryBase $query) {
 		$items = $this->_createResultSet($query);
 		$items = self::_applyOrderAndLimit($query->getToken(), $items);
 		if ($item = array_shift($items)) {
@@ -99,11 +99,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
 	 */
-	public function getAll(Query $query) {
+	public function getAll(QueryBase $query) {
 		$datas = new DataObjectCollection();
 		$result = $this->_createResultSet($query);
 		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {
@@ -119,7 +119,7 @@ class StoreStatic implements StoreInterface {
 	 * 
 	 * @return Data[]
 	 */
-	private function _createResultSet(Query $query) {
+	private function _createResultSet(QueryBase $query) {
 		$token = $query->getToken();
 		
 		$expression = $token->buildNative(self::_getTranslator()) . ';';

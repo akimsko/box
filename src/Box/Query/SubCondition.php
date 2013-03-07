@@ -18,10 +18,20 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	private $_aggregate;
 
 	/**
-	 * hello
+	 * hello - use ::create
 	 */
-	final public function __construct() {
+	final private function __construct() {
 		$this->_aggregate = new QueryAggregateCondition();
+		$this->_root = $this;
+	}
+
+	/**
+	 * Create a new sub query.
+	 *
+	 * @return QuerySubCondition
+	 */
+	public static function create() {
+		return new self();
 	}
 
 	/**
@@ -45,7 +55,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function contains($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->contains($property, $value, $caseSensitive);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -60,7 +72,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function endsWith($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->endsWith($property, $value, $caseSensitive);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -75,7 +89,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function startsWith($property, $value, $caseSensitive = false) {
 		$this->_token = $this->_aggregate->startsWith($property, $value, $caseSensitive);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -89,7 +105,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function equals($property, $value) {
 		$this->_token = $this->_aggregate->equals($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -103,7 +121,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function notEquals($property, $value) {
 		$this->_token = $this->_aggregate->notEquals($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -117,7 +137,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function greaterThan($property, $value) {
 		$this->_token = $this->_aggregate->greaterThan($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -131,7 +153,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function greaterThanOrEquals($property, $value) {
 		$this->_token = $this->_aggregate->greaterThanOrEquals($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -145,7 +169,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function lessThan($property, $value) {
 		$this->_token = $this->_aggregate->lessThan($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -159,7 +185,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function lessThanOrEquals($property, $value) {
 		$this->_token = $this->_aggregate->lessThanOrEquals($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -173,7 +201,9 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function in($property, $value) {
 		$this->_token = $this->_aggregate->in($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -187,6 +217,8 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	public function notIn($property, $value) {
 		$this->_token = $this->_aggregate->notIn($property, $value);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 }

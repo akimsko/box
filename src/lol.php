@@ -99,23 +99,5 @@ foreach ($datas as $data) {
 $store = new Box\StoreStatic();
 $store->persistAll($fixture);
 
-//$store->dump();
-
-$query = new Box\Query(new lol());
-$querySub = new Box\QuerySubCondition();
-
-
-$query->orderBy('moar')->orderBy('more', Box\QueryLimitOrOrderBy::DESC)->limit(3)->offset(2);
-
-/*
-$querySub->contains('ass', 'face')->and_()->endsWith('face', 'ass')->or_()->in('face', ['ass', 'face', 'boobs']);
-
-$query->greaterThan('lolpotential', 1337)->or_()->notEquals('assface', 'angry')->andSub($querySub)->or_()->equals('lol', 1)->andSub(new Box\QuerySubCondition())->and_();
-*/
-//$store = new Box\StoreStatic();
-
-var_dump($store->getAll($query));
-
-
-
-
+//var_dump($store->getAll(\Box\Query::create(new lol())->equals('lol', false)->and_()->contains('stuff', 'fork')->andSub(\Box\QuerySubCondition::create()->contains('stuff', 'knife'))));
+var_dump($store->getAll(\Box\Query::create(new lol())->contains('lol', true)->orderBy('more')->limit(2)));

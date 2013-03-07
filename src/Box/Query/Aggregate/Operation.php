@@ -15,11 +15,11 @@ namespace Box;
  */
 class QueryAggregateOperation implements QueryInterfaceOperation {
 	/**
-	 * @param QuerySubCondition
+	 * @param QueryBase
 	 *
 	 * @return TokenOperationAndSub
 	 */
-	public function andSub(QuerySubCondition $sub) {
+	public function andSub(QueryBase $sub) {
 		$token = new TokenOperationAndSub();
 		$token->sub = $sub->getToken();
 
@@ -27,11 +27,11 @@ class QueryAggregateOperation implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition $sub
+	 * @param QueryBase $sub
 	 *
 	 * @return TokenOperationOrSub
 	 */
-	public function orSub(QuerySubCondition $sub) {
+	public function orSub(QueryBase $sub) {
 		$token = new TokenOperationOrSub();
 		$token->sub = $sub->getToken();
 

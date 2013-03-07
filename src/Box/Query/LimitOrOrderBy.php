@@ -30,7 +30,9 @@ class QueryLimitOrOrderBy extends QueryBase {
 		$this->_token        = new TokenLimit();
 		$this->_token->limit = $limit;
 
-		return $this->_child = new QueryOffset();
+		$this->_child = new QueryOffset();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
@@ -46,6 +48,8 @@ class QueryLimitOrOrderBy extends QueryBase {
 		$this->_token->direction = $direction;
 		$this->_token->property  = $property;
 
-		return $this->_child = new QueryLimitOrOrderBy();
+		$this->_child = new QueryLimitOrOrderBy();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 }

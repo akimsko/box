@@ -24,46 +24,50 @@ class QueryOperation extends QueryLimitOrOrderBy {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QueryBase
 	 *
 	 * @return QueryOperation
 	 */
-	public function andSub(QuerySubCondition $sub = null) {
+	public function andSub(QueryBase $sub = null) {
 		$this->_token = $this->_aggregate->andSub($sub);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QueryBase
 	 *
 	 * @return QueryOperation
 	 */
-	public function orSub(QuerySubCondition $sub = null) {
+	public function orSub(QueryBase $sub) {
 		$this->_token = $this->_aggregate->orSub($sub);
 
-		return $this->_child = new QueryOperation();
+		$this->_child = new QueryOperation();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return QueryCondition
 	 */
 	public function and_() {
 		$this->_token = $this->_aggregate->and_();
 
-		return $this->_child = new QueryCondition();
+		$this->_child = new QueryCondition();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return QueryCondition
 	 */
 	public function or_() {
 		$this->_token = $this->_aggregate->or_();
 
-		return $this->_child = new QueryCondition();
+		$this->_child = new QueryCondition();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 }
