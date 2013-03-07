@@ -17,20 +17,20 @@ interface StoreInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
 	 */
-	public function get(Query $query);
+	public function get(QueryBase $query);
 	
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
 	 */
-	public function getAll(Query $query);
+	public function getAll(QueryBase $query);
 	
 	/**
 	 * Persist a single data object.
@@ -63,9 +63,9 @@ interface StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return integer
 	 */
-	public function count(Query $query);
+	public function count(QueryBase $query);
 }

@@ -20,6 +20,9 @@ class QueryBase {
 	/** @var TokenBase The token for this query element. */
 	protected $_token;
 
+	/** @var Query|QuerySubCondition The root of this query. */
+	protected $_root;
+
 	/**
 	 * Get the token this query element translates to.
 	 *
@@ -31,5 +34,9 @@ class QueryBase {
 		}
 
 		return $this->_token;
+	}
+
+	public function getToken() {
+		return $this->_root->getToken();
 	}
 }

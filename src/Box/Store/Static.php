@@ -51,11 +51,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return integer
 	 */
-	public function count(Query $query) {
+	public function count(QueryBase $query) {
 		return count($this->_createResultSet($query));
 	}
 
@@ -82,11 +82,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
 	 */
-	public function get(Query $query) {
+	public function get(QueryBase $query) {
 		$items = $this->_createResultSet($query);
 		if ($item = array_shift($items)) {
 			$item = $item->toArrayCopy();
@@ -98,11 +98,11 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
 	 */
-	public function getAll(Query $query) {
+	public function getAll(QueryBase $query) {
 		$datas = new DataObjectCollection();
 		foreach ($this->_createResultSet($query) as $item) {
 			$item = $item->toArrayCopy();
@@ -117,7 +117,7 @@ class StoreStatic implements StoreInterface {
 	 * 
 	 * @return Data[]
 	 */
-	private function _createResultSet(Query $query) {
+	private function _createResultSet(QueryBase $query) {
 		$token = $query->getToken();
 		
 		$expression = $token->buildNative(self::_getTranslator()) . ';';
