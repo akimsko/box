@@ -15,11 +15,11 @@ namespace Box;
  */
 class QueryAggregateOperation implements QueryInterfaceOperation {
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition
 	 *
 	 * @return TokenOperationAndSub
 	 */
-	public function andSub(QuerySubCondition $sub = null) {
+	public function andSub(QuerySubCondition $sub) {
 		$token = new TokenOperationAndSub();
 		$token->sub = $sub->getToken();
 
@@ -27,11 +27,11 @@ class QueryAggregateOperation implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition $sub
 	 *
 	 * @return TokenOperationOrSub
 	 */
-	public function orSub(QuerySubCondition $sub = null) {
+	public function orSub(QuerySubCondition $sub) {
 		$token = new TokenOperationOrSub();
 		$token->sub = $sub->getToken();
 
@@ -39,8 +39,6 @@ class QueryAggregateOperation implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return TokenOperationAnd
 	 */
 	public function and_() {
@@ -50,8 +48,6 @@ class QueryAggregateOperation implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return TokenOperationOr
 	 */
 	public function or_() {

@@ -15,14 +15,14 @@ namespace Box;
  */
 interface QueryInterfaceOperation {
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition $sub
 	 */
-	public function andSub(QuerySubCondition $sub = null);
+	public function andSub(QuerySubCondition $sub);
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition $sub
 	 */
-	public function orSub(QuerySubCondition $sub = null);
+	public function orSub(QuerySubCondition $sub);
 
 	/**
 	 */

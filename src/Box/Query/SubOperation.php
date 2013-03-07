@@ -24,30 +24,28 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition $sub
 	 *
 	 * @return QuerySubOperation
 	 */
-	public function andSub(QuerySubCondition $sub = null) {
+	public function andSub(QuerySubCondition $sub) {
 		$this->_token = $this->_aggregate->andSub($sub);
 
 		return $this->_child = new QuerySubOperation();
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
+	 * @param QuerySubCondition $sub
 	 *
 	 * @return QuerySubOperation
 	 */
-	public function orSub(QuerySubCondition $sub = null) {
+	public function orSub(QuerySubCondition $sub) {
 		$this->_token = $this->_aggregate->orSub($sub);
 
 		return $this->_child = new QuerySubOperation();
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return QuerySubCondition
 	 */
 	public function and_() {
@@ -57,8 +55,6 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition Optional.
-	 *
 	 * @return QuerySubCondition
 	 */
 	public function or_() {
