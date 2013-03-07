@@ -40,6 +40,15 @@ class Data implements \ArrayAccess {
 		}
 	}
 	
+	/**
+	 * Get a copy of properties as array.
+	 * 
+	 * @return array
+	 */
+	public function toArrayCopy() {
+		return $this->_properties;
+	}
+	
 	
 	/**
 	 * Set a property by name.

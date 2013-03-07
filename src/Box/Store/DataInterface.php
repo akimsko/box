@@ -19,7 +19,7 @@ class StoreDataInterface {
 	 * 
 	 * @param integer $id
 	 * 
-	 * @return Data
+	 * @return array
 	 * 
 	 * @throws StoreException
 	 */
@@ -30,7 +30,7 @@ class StoreDataInterface {
 	 * 
 	 * @param integer[] $ids
 	 * 
-	 * @return Data[]
+	 * @return array[]
 	 * 
 	 * @throws StoreException
 	 */
