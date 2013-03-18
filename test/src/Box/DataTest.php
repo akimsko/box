@@ -1,6 +1,5 @@
 <?php
 namespace Box;
-require_once 'BaseTest.php';
 /*
  * This file is part of the Box project.
  * @link https://github.com/akimsko/box
