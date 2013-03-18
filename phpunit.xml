@@ -1,12 +1,13 @@
 <phpunit backupGlobals="true"
          backupStaticAttributes="false"
          cacheTokens="true"
-         colors="false"
+         colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
 		 verbose="true"
-         strict="true">
+         strict="true"
+         bootstrap="test\bootstrap.php">
 	<testsuites>
 		<testsuite name="Box Test Suite">
 			<directory suffix=".php" phpVersion="5.3.0" phpVersionOperator="&gt;=">test</directory>
