@@ -17,7 +17,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Query;
+        $this->object = Query::create();
     }
 
     /**

@@ -17,7 +17,7 @@ class QuerySubConditionTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new QuerySubCondition;
+        $this->object = QuerySubCondition::create();
     }
 
     /**
