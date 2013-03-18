@@ -7,7 +7,7 @@
          convertWarningsToExceptions="true"
 		 verbose="true"
          strict="true"
-         bootstrap="test\bootstrap.php">
+         bootstrap="test/bootstrap.php">
 	<testsuites>
 		<testsuite name="Box Test Suite">
 			<directory suffix=".php" phpVersion="5.3.0" phpVersionOperator="&gt;=">test</directory>
