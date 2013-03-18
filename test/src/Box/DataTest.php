@@ -15,6 +15,38 @@ namespace Box;
  */
 class DataTest extends \PHPUnit_Framework_TestCase {
 	
+	public function testConstruct() {
+		$data = new Data(array('test' => 1));
+		$this->assertEquals($data->test, 1);
+	}
+	
+	public function testToArrayCopy() {
+		$data = new Data(array('test' => 1));
+		$copy = $data->toArrayCopy();
+		$this->assertEquals($copy['test'], 1);
+		$copy['test'] = 2;
+		$this->assertEquals($copy['test'], 2);
+		$this->assertEquals($data['test'], 1);
+	}
+	
+	public function testRemove() {
+		$data = new Data(array('test' => 1));
+		$data->remove('test');
+		$this->assertFalse(array_key_exists('test', $data));
+	}
+	
+	public function testOffsetUnset() {
+		$data = new Data(array('test' => 1));
+		unset($data['test']);
+		$this->assertFalse(isset($data['test']) || isset($data->test));
+	}
+	
+	public function testUnset() {
+		$data = new Data(array('test' => 1));
+		unset($data->test);
+		$this->assertFalse(isset($data['test']) || isset($data->test));
+	}
+	
 	public function testTypeInteger() {
 		$data = new Data();
 		
@@ -87,6 +119,14 @@ class DataTest extends \PHPUnit_Framework_TestCase {
 		$data->put('test', array(1, '2', 3));
 	}
 	
+	/**
+     * @expectedException InvalidArgumentException
+     */
+	public function testArgumentInvalidNull() {
+		$data = new Data();
+		$data->put(null, 1);
+	}
+	
 	public function testTypesIntegerArray() {
 		$data = new Data();
 		
@@ -145,5 +185,11 @@ class DataTest extends \PHPUnit_Framework_TestCase {
 		foreach ($data['test'] as $key => $val) {
 			$this->assertEquals($array[$key], $val);
 		}
+	}
+	
+	public function testTypesEmptyArray() {
+		$data = new Data();
+		$data->put('test', array());
+		$this->assertTrue(is_array($data->test));
 	}
 }

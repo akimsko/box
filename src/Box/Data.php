@@ -200,7 +200,7 @@ class Data implements \ArrayAccess {
 	 * @return boolean Is set.
 	 */
 	public function __isset($name) {
-		return isset($this->_properties[$offset]);
+		return isset($this->_properties[$name]);
 	}
 	
 	/**
