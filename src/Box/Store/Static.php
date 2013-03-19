@@ -79,10 +79,7 @@ class StoreStatic implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject) {
-		if (!is_integer($dataObject->getId())) {
-			throw new StoreException('The data object must have an integer id.');
-		}
-		$store = self::_getStore(get_class($dataObject));
+		$store = &self::_getStore(get_class($dataObject));
 		unset($store[$dataObject->getId()]);
 	}
 
@@ -111,7 +108,8 @@ class StoreStatic implements StoreInterface {
 		$items = self::_applyOrderAndLimit($query->getToken(), $items);
 		if ($item = array_shift($items)) {
 			$item = $item->toArrayCopy();
-			$item = $query->getToken()->instance->fromData($item, false);
+			$class = $query->getToken()->instance;
+			$item = $class::fromData($item, false);
 		}
 		return $item;
 	}
@@ -128,9 +126,11 @@ class StoreStatic implements StoreInterface {
 	public function getAll(QueryInterface $query) {
 		$datas = new DataObjectCollection();
 		$result = $this->_createResultSet($query);
+		
 		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {
 			$item = $item->toArrayCopy();
-			$datas->add($query->getToken()->instance->fromData($item));
+			$class = $query->getToken()->instance;
+			$datas->add($class::fromData($item));
 		}
 		return $datas;
 	}
@@ -169,7 +169,7 @@ class StoreStatic implements StoreInterface {
 			$dataObject->setId(self::_getNextIndex($namespace));
 		}
 
-		$store = self::_getStore($namespace);
+		$store = &self::_getStore($namespace);
 		$store[$dataObject->getId()] = $dataObject->toData();
 	}
 
