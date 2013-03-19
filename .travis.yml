@@ -7,5 +7,5 @@ php:
 notifications:
   email: false
 
-after_success: php dostuff.php
+after_success: bash dostuff.sh
 
