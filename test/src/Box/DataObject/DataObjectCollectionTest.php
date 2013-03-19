@@ -90,20 +90,33 @@ class DataObjectCollectionTest extends \PHPUnit_Framework_TestCase implements Da
 		$this->assertCount(3, $it);
 	}
 	
-	public function fromData(array &$data, $new = true) {
-		return new Data();
+	/**
+	 * @covers Box\DataObjectCollection::getIds
+	 * @depends testAddAll
+	 */
+	public function testGetIds(DataObjectCollection $doc) {
+		$this->assertCount(0, $doc->getIds());
+		$doc->get(0)->setId(1);
+		$this->assertCount(1, $doc->getIds());
 	}
+	
+	private $_id;
 
 	public function getId() {
-		return null;
+		return $this->_id;
 	}
 
 	public function setId($id) {
+		$this->_id = $id;
 		return $this;
 	}
 
 	public function toData() {
-		return $this;
+		return new Data(array('id' => $this->_id));
 	}
 
+	public static function fromData(array &$data) {
+		$do = new self();
+		return $do->setId($data['id']);
+	}
 }

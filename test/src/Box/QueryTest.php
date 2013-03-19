@@ -157,14 +157,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase implements DataObjectInterfa
 	}
 
 	/**
-	 * Populate this instance or create a new populated instance from data.
-	 *
-	 * @param array   &$data Data in key => value form.
-	 * @param boolean $new   Create a new instance.
-	 *
+	 * Populate a new instance from data.
+	 * 
+	 * @param array &$data Data in key => value form.
+	 * 
 	 * @return static
 	 */
-	public function fromData(array &$data, $new = true) {
+	public static function fromData(array &$data) {
 		return $this;
 	}
 }

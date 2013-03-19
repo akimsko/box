@@ -18,7 +18,7 @@ interface DataObjectInterface {
 	/**
 	 * Set the id.
 	 * 
-	 * @param integer $id
+	 * @param integer $id|null
 	 */
 	public function setId($id);
 	
@@ -37,12 +37,11 @@ interface DataObjectInterface {
 	public function toData();
 	
 	/**
-	 * Populate this instance or create a new populated instance from data.
+	 * Populate a new instance from data.
 	 * 
-	 * @param array   &$data Data in key => value form.
-	 * @param boolean $new   Create a new instance.
+	 * @param array &$data Data in key => value form.
 	 * 
 	 * @return static
 	 */
-	public function fromData(array &$data, $new = true);
+	public static function fromData(array &$data);
 }

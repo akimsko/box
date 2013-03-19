@@ -27,6 +27,20 @@ class DataObjectCollection implements \IteratorAggregate, \Countable {
 	}
 	
 	/**
+	 * Get ids in this collection. Null ids will be left out.
+	 * 
+	 * @return integer[]
+	 */
+	public function getIds() {
+		$function = function ($i) {
+			return $i->getId();
+		};
+		return array_map($function, array_filter($this->_dataObjects, function($h) {
+			return is_integer($h->getId());
+		}));
+	}
+	
+	/**
 	 * Add a data object.
 	 * 
 	 * @param DataObjectInterface $dataObject
