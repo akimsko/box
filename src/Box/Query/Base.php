@@ -36,7 +36,16 @@ class QueryBase {
 		return $this->_token;
 	}
 
+	/**
+	 * Get the token representing the root of the query this query part belongs to, if any.
+	 *
+	 * @return TokenRoot|null
+	 */
 	public function getToken() {
-		return $this->_root->getToken();
+		if ($this->_root instanceof QueryBase) {
+			return $this->_root->getToken();
+		} else {
+			throw new Exception("Internal Box framework error: Token root has not been set.");
+		}
 	}
 }
