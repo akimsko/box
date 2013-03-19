@@ -35,13 +35,27 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get the next unused store index.
 	 * 
+	 * @param string $namespace
+	 * 
 	 * @return integer The next index.
 	 */
-	private static function _getNextIndex() {
-		if (!self::$_dataStore) {
+	private static function _getNextIndex($namespace) {
+		if (!self::_getStore($namespace)) {
 			return 1;
 		}
-		return max(array_keys(self::$_dataStore)) + 1;
+		return max(array_keys(self::_getStore($namespace))) + 1;
+	}
+	
+	/**
+	 * Get the namespaced store.
+	 * 
+	 * @param string $namespace
+	 */
+	private static function &_getStore($namespace) {
+		if (!isset(self::$_dataStore[$namespace])) {
+			self::$_dataStore[$namespace] = array();
+		}
+		return self::$_dataStore[$namespace];
 	}
 	
 	/**
@@ -61,9 +75,15 @@ class StoreStatic implements StoreInterface {
 	 * Delete a data object from store.
 	 * 
 	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject) {
-		unset(self::$_dataStore[$dataObject->getId()]);
+		if (!is_integer($dataObject->getId())) {
+			throw new StoreException('The data object must have an integer id.');
+		}
+		$store = self::_getStore(get_class($dataObject));
+		unset($store[$dataObject->getId()]);
 	}
 
 	/**
@@ -130,7 +150,7 @@ class StoreStatic implements StoreInterface {
 			throw new StoreException('Couldnt get token.', 0, $qe);
 		}
 		$expression = $token->buildNative(self::_getTranslator()) . ';';
-		$result = array_filter(self::$_dataStore, function($i) use ($expression) {
+		$result = array_filter(self::_getStore(get_class($token->instance)), function($i) use ($expression) {
 			return eval($expression);
 		});
 		
@@ -143,10 +163,14 @@ class StoreStatic implements StoreInterface {
 	 * @param DataObjectInterface $dataObject
 	 */
 	public function persist(DataObjectInterface $dataObject) {
-		if (!$dataObject->getId()) {
-			$dataObject->setId(self::_getNextIndex());
+		$namespace = get_class($dataObject);
+		
+		if (!is_integer($dataObject->getId())) {
+			$dataObject->setId(self::_getNextIndex($namespace));
 		}
-		self::$_dataStore[$dataObject->getId()] = $dataObject->toData();
+
+		$store = self::_getStore($namespace);
+		$store[$dataObject->getId()] = $dataObject->toData();
 	}
 
 	/**
