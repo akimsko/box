@@ -29,7 +29,8 @@ class QueryAggregateOperationTest extends \PHPUnit_Framework_TestCase {
 	 * @covers Box\QueryAggregateOperation::andSub
 	 */
 	public function testAndSub() {
-		$sub = QuerySubCondition::create();
+		$sub = QuerySubCondition::create()->endsWith('lol', 'face');
+
 		$token = $this->object->andSub($sub);
 
 		$this->assertTrue($token instanceof TokenOperationAndSub);
@@ -39,7 +40,7 @@ class QueryAggregateOperationTest extends \PHPUnit_Framework_TestCase {
 	 * @covers Box\QueryAggregateOperation::orSub
 	 */
 	public function testOrSub() {
-		$sub = QuerySubCondition::create();
+		$sub   = QuerySubCondition::create();
 		$token = $this->object->orSub($sub);
 
 		$this->assertTrue($token instanceof TokenOperationOrSub);
