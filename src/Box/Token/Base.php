@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-abstract class TokenBase {
+abstract class TokenBase implements TokenInterface {
 	/** @var TokenBase The token that comes after this one. */
 	public $nextToken;
 	

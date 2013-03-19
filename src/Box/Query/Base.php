@@ -39,13 +39,13 @@ abstract class QueryBase implements QueryInterface {
 	/**
 	 * Get the token representing the root of the query this query part belongs to, if any.
 	 *
-	 * @return TokenRoot|null
+	 * @return TokenRoot
 	 * 
 	 * @throws QueryException
 	 */
 	public function getToken() {
-		if ($this->_root instanceof QueryBase) {
-			return $this->_root->getToken();
+		if ($this->_root instanceof QueryBase && ($token = $this->_root->getToken()) !== null) {
+			return $token;
 		} else {
 			throw new QueryException("Internal Box framework error: Token root has not been set.");
 		}
