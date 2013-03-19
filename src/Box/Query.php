@@ -23,7 +23,7 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	 *
 	 * @param DataObjectInterface $instance An instance of the class you want to get instances of, eventually.
 	 */
-	final private function __construct(DataObjectInterface $instance = null) {
+	final private function __construct(DataObjectInterface $instance) {
 		$this->_aggregate = new QueryAggregateCondition();
 
 		$this->_rootToken = new TokenRoot();
@@ -37,7 +37,7 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 	 *
 	 * @return Query
 	 */
-	public static function create(DataObjectInterface $instance = null) {
+	public static function create(DataObjectInterface $instance) {
 		return new self($instance);
 	}
 

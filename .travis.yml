@@ -6,3 +6,6 @@ php:
 
 notifications:
   email: false
+
+after_success: php dostuff.php
+
