@@ -67,8 +67,10 @@ class lol implements Box\DataObjectInterface {
 	
 	public function fromData(array &$data, $new = true) {
 		$instance = $new ? new self() : $this;
+
+		if (isset($data['id'])) $instance->setId($data['id']);
+
 		return $instance
-			->setId(isset($data['id']) ? $data['id'] : null)
 			->setStuff($data['stuff'])
 			->setMore($data['more'])
 			->setMoar($data['moar'])

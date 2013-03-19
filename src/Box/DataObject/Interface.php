@@ -25,7 +25,7 @@ interface DataObjectInterface {
 	/**
 	 * Get the id
 	 * 
-	 * @return integer
+	 * @return integer|null
 	 */
 	public function getId();
 	
