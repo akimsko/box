@@ -8,6 +8,7 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 namespace Box;
+
 /**
  * Query
  *
@@ -24,28 +25,30 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	}
 
 	/**
-	 * @param QuerySubCondition $sub
+	 * @param QueryBase $sub
 	 *
 	 * @return QuerySubOperation
 	 */
-	public function andSub(QuerySubCondition $sub) {
+	public function andSub(QueryBase $sub) {
 		$this->_token = $this->_aggregate->andSub($sub);
 
-		$this->_child = new QuerySubOperation();
+		$this->_child        = new QuerySubOperation();
 		$this->_child->_root = $this->_root;
+
 		return $this->_child;
 	}
 
 	/**
-	 * @param QuerySubCondition $sub
+	 * @param QueryBase $sub
 	 *
 	 * @return QuerySubOperation
 	 */
-	public function orSub(QuerySubCondition $sub) {
+	public function orSub(QueryBase $sub) {
 		$this->_token = $this->_aggregate->orSub($sub);
 
-		$this->_child = new QuerySubOperation();
+		$this->_child        = new QuerySubOperation();
 		$this->_child->_root = $this->_root;
+
 		return $this->_child;
 	}
 
@@ -55,8 +58,9 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	public function and_() {
 		$this->_token = $this->_aggregate->and_();
 
-		$this->_child = new QuerySubCondition();
+		$this->_child        = QuerySubCondition::create();
 		$this->_child->_root = $this->_root;
+
 		return $this->_child;
 	}
 
@@ -66,8 +70,9 @@ class QuerySubOperation extends QueryBase implements QueryInterfaceOperation {
 	public function or_() {
 		$this->_token = $this->_aggregate->or_();
 
-		$this->_child = new QuerySubCondition();
+		$this->_child        = QuerySubCondition::create();
 		$this->_child->_root = $this->_root;
+
 		return $this->_child;
 	}
 }
