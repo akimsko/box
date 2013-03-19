@@ -47,11 +47,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param QueryBase $query
+	 * @param QueryInterface $query
 	 * 
 	 * @return integer
+	 * 
+	 * @throws StoreException
 	 */
-	public function count(QueryBase $query) {
+	public function count(QueryInterface $query) {
 		return count($this->_createResultSet($query));
 	}
 
@@ -78,11 +80,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param QueryBase $query
+	 * @param QueryInterface $query
 	 * 
 	 * @return DataObjectInterface|null
+	 * 
+	 * @throws StoreException
 	 */
-	public function get(QueryBase $query) {
+	public function get(QueryInterface $query) {
 		$items = $this->_createResultSet($query);
 		$items = self::_applyOrderAndLimit($query->getToken(), $items);
 		if ($item = array_shift($items)) {
@@ -95,11 +99,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param QueryBase $query
+	 * @param QueryInterface $query
 	 * 
 	 * @return DataObjectCollection
+	 * 
+	 * @throws StoreException
 	 */
-	public function getAll(QueryBase $query) {
+	public function getAll(QueryInterface $query) {
 		$datas = new DataObjectCollection();
 		$result = $this->_createResultSet($query);
 		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {
@@ -111,15 +117,19 @@ class StoreStatic implements StoreInterface {
 	
 	/**
 	 * 
-	 * @param Query $query
+	 * @param QueryInterface $query
 	 * 
 	 * @return Data[]
+	 * 
+	 * @throws StoreException
 	 */
-	private function _createResultSet(QueryBase $query) {
-		$token = $query->getToken();
-		
+	private function _createResultSet(QueryInterface $query) {
+		try {
+			$token = $query->getToken();
+		} catch (QueryException $qe) {
+			throw new StoreException('Couldnt get token.', 0, $qe);
+		}
 		$expression = $token->buildNative(self::_getTranslator()) . ';';
-		
 		$result = array_filter(self::$_dataStore, function($i) use ($expression) {
 			return eval($expression);
 		});

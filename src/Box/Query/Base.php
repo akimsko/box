@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-class QueryBase {
+abstract class QueryBase implements QueryInterface {
 	/** @var QueryBase The child query element of this query element. */
 	protected $_child;
 
@@ -40,12 +40,14 @@ class QueryBase {
 	 * Get the token representing the root of the query this query part belongs to, if any.
 	 *
 	 * @return TokenRoot|null
+	 * 
+	 * @throws QueryException
 	 */
 	public function getToken() {
 		if ($this->_root instanceof QueryBase) {
 			return $this->_root->getToken();
 		} else {
-			throw new Exception("Internal Box framework error: Token root has not been set.");
+			throw new QueryException("Internal Box framework error: Token root has not been set.");
 		}
 	}
 }

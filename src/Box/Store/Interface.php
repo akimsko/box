@@ -20,6 +20,8 @@ interface StoreInterface {
 	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
+	 * 
+	 * @throws StoreException
 	 */
 	public function get(QueryBase $query);
 	
@@ -29,6 +31,8 @@ interface StoreInterface {
 	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
+	 * 
+	 * @throws StoreException
 	 */
 	public function getAll(QueryBase $query);
 	
@@ -66,6 +70,8 @@ interface StoreInterface {
 	 * @param QueryBase $query
 	 * 
 	 * @return integer
+	 * 
+	 * @throws StoreException
 	 */
 	public function count(QueryBase $query);
 }
