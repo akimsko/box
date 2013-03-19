@@ -17,7 +17,7 @@ class QueryConditionTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->object = new QueryCondition;
+		$this->object = new QueryCondition();
 	}
 
 	/**
@@ -25,128 +25,133 @@ class QueryConditionTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called after a test is executed.
 	 */
 	protected function tearDown() {
-		
+	}
+
+	/**
+	 * @covers Box\QueryCondition::__construct
+	 */
+	public function testConstruct() {
+		$this->assertTrue(new QueryCondition() instanceof QueryCondition);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::contains
-	 * @todo   Implement testContains().
 	 */
 	public function testContains() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->contains('property', 'value', false);
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->contains('property2', 'value2', true);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::endsWith
-	 * @todo   Implement testEndsWith().
 	 */
 	public function testEndsWith() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->endsWith('property', 'value', false);
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->endsWith('property2', 'value2', true);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::startsWith
-	 * @todo   Implement testStartsWith().
 	 */
 	public function testStartsWith() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->startsWith('property', 'value', false);
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->startsWith('property2', 'value2', true);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::equals
-	 * @todo   Implement testEquals().
 	 */
 	public function testEquals() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->equals('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->equals('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::notEquals
-	 * @todo   Implement testNotEquals().
 	 */
 	public function testNotEquals() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->notEquals('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->notEquals('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::greaterThan
-	 * @todo   Implement testGreaterThan().
 	 */
 	public function testGreaterThan() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->greaterThan('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->greaterThan('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::greaterThanOrEquals
-	 * @todo   Implement testGreaterThanOrEquals().
 	 */
 	public function testGreaterThanOrEquals() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->greaterThanOrEquals('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->greaterThanOrEquals('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::lessThan
-	 * @todo   Implement testLessThan().
 	 */
 	public function testLessThan() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->lessThan('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->lessThan('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::lessThanOrEquals
-	 * @todo   Implement testLessThanOrEquals().
 	 */
 	public function testLessThanOrEquals() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->lessThanOrEquals('property', 'value');
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->lessThanOrEquals('property2', 42);
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::in
-	 * @todo   Implement testIn().
 	 */
 	public function testIn() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$op = $this->object->in('property', array('value'));
+		$this->assertTrue($op instanceof QueryOperation);
+
+		$op = $this->object->in('property2', array('value', 42, 'face'));
+		$this->assertTrue($op instanceof QueryOperation);
 	}
 
 	/**
 	 * @covers Box\QueryCondition::notIn
-	 * @todo   Implement testNotIn().
 	 */
 	public function testNotIn() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
-	}
+		$op = $this->object->notIn('property', array('value'));
+		$this->assertTrue($op instanceof QueryOperation);
 
+		$op = $this->object->notIn('property2', array('value', 42, 'face'));
+		$this->assertTrue($op instanceof QueryOperation);
+	}
 }
