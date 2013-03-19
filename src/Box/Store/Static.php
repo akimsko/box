@@ -44,10 +44,6 @@ class StoreStatic implements StoreInterface {
 		return max(array_keys(self::$_dataStore)) + 1;
 	}
 	
-	public function dump() {
-		var_dump(self::$_dataStore);
-	}
-	
 	/**
 	 * Count stored records for query.
 	 * 
