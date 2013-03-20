@@ -28,6 +28,7 @@ class Query extends QueryLimitOrOrderBy implements QueryInterfaceCondition {
 
 		$this->_rootToken = new TokenRoot();
 		$this->_rootToken->instance = $instance;
+		$this->_root = $this;
 	}
 
 	/**
