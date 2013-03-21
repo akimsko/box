@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class StoreDataInterface {
+interface StoreDataInterface {
 	/**
 	 * Get a data package from id.
 	 * 
