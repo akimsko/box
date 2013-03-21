@@ -38,14 +38,18 @@ interface StoreDataInterface {
 	
 	/**
 	 * Persist a data object.
-	 * 
+	 *
+	 * @param DataObjectInterface $dataObject
+	 *
 	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject);
 	
 	/**
 	 * Persist a data object collection.
-	 * 
+	 *
+	 * @param DataObjectCollection $dataObjects
+	 *
 	 * @throws StoreException
 	 */
 	public function persistAll(DataObjectCollection $dataObjects);
