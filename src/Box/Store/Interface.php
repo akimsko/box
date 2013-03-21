@@ -65,6 +65,13 @@ interface StoreInterface {
 	public function deleteAll(DataObjectCollection $dataObjects);
 	
 	/**
+	 * Remove all records of the given type.
+	 * 
+	 * @param DataObjectInterface $type
+	 */
+	public function truncate(DataObjectInterface $type);
+	
+	/**
 	 * Count stored records for query.
 	 * 
 	 * @param QueryBase $query

@@ -185,6 +185,16 @@ class StoreStatic implements StoreInterface {
 	}
 	
 	/**
+	 * Remove all records of the given type.
+	 * 
+	 * @param DataObjectInterface $type
+	 */
+	public function truncate(DataObjectInterface $type) {
+		$namespace = get_class($type);
+		unset(self::$_dataStore[$namespace]);
+	}
+	
+	/**
 	 * Retrofit orderBy and limit.
 	 * 
 	 * @param TokenRoot $token  The root token.
