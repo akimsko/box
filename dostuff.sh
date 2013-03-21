@@ -15,7 +15,7 @@ if [ "$PHPV" = "3" ]; then
 	cd box.wiki
 	mkdir Api
 	git rm Api/*
-	phpdoc parse -t . -d ~/box/src
+	phpdoc parse -t . -d ~/build/akimsko/box/src
 	phpdocmd structure.xml Api
 	git add Api/*
 	git commit -m "Updated documentation." && git push
