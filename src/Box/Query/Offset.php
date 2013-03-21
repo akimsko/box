@@ -25,7 +25,9 @@ class QueryOffset extends QueryBase {
 	public function offset($offset) {
 		$this->_token = new TokenOffset();
 		$this->_token->offset = $offset;
-
-		return null;
+		
+		$this->_child = new QueryBase();
+		$this->_child->_root = $this->_root;
+		return $this->_child;
 	}
 }

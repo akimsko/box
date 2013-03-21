@@ -124,4 +124,13 @@ class StoreUnified implements StoreInterface {
 		$this->_index->removeAll($dataObjects);
 		$this->_data->deleteAll($dataObjects);
 	}
+
+	/**
+	 * Remove all records of the given type.
+	 * 
+	 * @param DataObjectInterface $type
+	 */
+	public function truncate(DataObjectInterface $type) {
+		
+	}
 }

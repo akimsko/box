@@ -63,13 +63,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param QueryInterface $query
+	 * @param QueryBase $query
 	 * 
 	 * @return integer
 	 * 
 	 * @throws StoreException
 	 */
-	public function count(QueryInterface $query) {
+	public function count(QueryBase $query) {
 		return count($this->_createResultSet($query));
 	}
 
@@ -99,13 +99,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param QueryInterface $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
 	 * 
 	 * @throws StoreException
 	 */
-	public function get(QueryInterface $query) {
+	public function get(QueryBase $query) {
 		$items = $this->_createResultSet($query);
 		$items = self::_applyOrderAndLimit($query->getToken(), $items);
 		if ($item = array_shift($items)) {
@@ -119,13 +119,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param QueryInterface $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
 	 * 
 	 * @throws StoreException
 	 */
-	public function getAll(QueryInterface $query) {
+	public function getAll(QueryBase $query) {
 		$datas = new DataObjectCollection();
 		$result = $this->_createResultSet($query);
 		
@@ -140,13 +140,13 @@ class StoreStatic implements StoreInterface {
 	/**
 	 * Create a result set.
 	 *
-	 * @param QueryInterface $query
+	 * @param QueryBase $query
 	 * 
 	 * @return Data[]
 	 * 
 	 * @throws StoreException
 	 */
-	private function _createResultSet(QueryInterface $query) {
+	private function _createResultSet(QueryBase $query) {
 		try {
 			$token = $query->getToken();
 		} catch (QueryException $qe) {
@@ -185,6 +185,16 @@ class StoreStatic implements StoreInterface {
 		foreach ($dataObjects as $dataObject) {
 			$this->persist($dataObject);
 		}
+	}
+	
+	/**
+	 * Remove all records of the given type.
+	 * 
+	 * @param DataObjectInterface $type
+	 */
+	public function truncate(DataObjectInterface $type) {
+		$namespace = get_class($type);
+		unset(self::$_dataStore[$namespace]);
 	}
 	
 	/**
