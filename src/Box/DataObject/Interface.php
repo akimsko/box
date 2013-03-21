@@ -18,7 +18,7 @@ interface DataObjectInterface {
 	/**
 	 * Set the id.
 	 * 
-	 * @param integer $id|null
+	 * @param integer|null $id
 	 */
 	public function setId($id);
 	
