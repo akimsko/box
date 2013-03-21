@@ -1,11 +1,125 @@
 language: php
 php:
-  - 5.5
-  - 5.4
-  - 5.3
+- 5.5
+- 5.4
+- 5.3
 
 notifications:
   email: false
 
-after_success: bash dostuff.sh
+env:
+  global: 
+  - secure: |-
+      cjiQCdcvooxke+8ch2+HqTc9zhMnsHqJ/lHXBYiLyCO3chXT4vncAzSZrEDu
+      nsBCS0qfbzlK9CSxnvZRyiFJU1+fvNRCdeq3XQN/UgsIg9sBV/W0ALINi+TH
+      TgZHZ7oI5a4+1o88TOPMJx+cVna8G1X925Bl9b2mw6oqTCtwguA=
+  - secure: |-
+      noIZ6wz/uVfgArqIpFnQnajUbR8WCLJ2sumEmj11nJEtuvZQQNcOmKNJNG7Z
+      O43fPtLL9ugZ2jF/qwzQnNqqGKRdsywfjpuNbYHt3eJxWujD5UC66W0j2/gB
+      SoHhQpovQtyD54vTT8zEEgCAT9SNZhcMZoPCsqQblICbdoNUiro=
+  - secure: |-
+      L1u98G9WRlPb3DZfpSGciW2fC86jOVJ3ye/T3f83MWm/MDoqW5eGxi36vRRz
+      xqXvrtUPW5FL68r7RVNaXiqqD24TotJYi2XIvNugtaq/TxSdJh2KIGWKgLMt
+      pqA7qxPNTMBwGw3Q3RMehrTz4rOabObTW0m/WK+xiy42U3cuW9Y=
+  - secure: |-
+      VqQicEw0sjr3Q/K/QXC1fKskeqvyd+kM1dmoUSjIrBkoKvqJKsiHCbAPjrpA
+      gcuQFRYxwplp3QaO+aR6PUyMn8TUMZd+CdnxC879+lPQqY++7UQorQ4aYcnW
+      VcSogcvMzzMoM+mWCPyIFsrxkzfZlhXNEx3qReUrfoNChi+k/Hw=
+  - secure: |-
+      f+SM12OOooLNdlOheP7XO9v0czxXMe6i/m7IQbk/yFVkyrwmhJmm0arzTDMj
+      KjHxcfMLUjIP9RYFWL8A9FY4O838EBSChe2uQEHa73Bo6c6PG/YJbfeOPGP+
+      xMnJ5g8HYH+5VDqyx1HE55eUmPmCpAioYkjSfVd2beQGdYQmFYo=
+  - secure: |-
+      T7VsBCPdoDBPTih6ndYc/4EnQyVNDYGr77zsQ/74/P/bS0t8g0i90/ep5JvQ
+      YhSfy2/aIKodw2qrpnhlRhSH6rT4uVTgoYmBcX6Lcr4xV7KRwcltLCz0QxU0
+      qC496omqzlqBZ4jEemnT0sNFIfwP9Mcl9aC8HQMS0nT2aGvqlio=
+  - secure: |-
+      pq/zQbhIM8xAQcryUqfAFMDKQldco50uj4x05UvQ9MEHRL3amgTwTu8Q4HcG
+      EfoLtDP+cBDj75J6iZd+PTzG/Q4cUPQgnRAxd8s8D8BD3AKQuA37gekhwihp
+      /qX3+3AxM8uzQzNaSreHBvd5IWjIGwlKgHygo/9GfQZWCGlibms=
+  - secure: |-
+      oAD63h/unPSXLU1P7Cmo9vDZSESEPU/OwwwsCFmhuW0n7EfGvYevvJZbdaMH
+      YFfwv2BZs85Z5SOSxvMYEboZbsUDyEjoYB2UeRhHJORl7u0SWWAhIZNcZWCl
+      X+nsZgdt7Ke2/brn4ljgslHKELkCF0pIWN47NmhW9Uet7axF2y4=
+  - secure: |-
+      plKM1qoELzWzoOOjdfabDuDVqDOF2Mbv9flgiDUAI1vcoxiKbSvZLTQ1X971
+      6GpQtDaNPFPkPvpFK3R6Z553ib0WFWuGqzZZoBpVClJHWtLq/oFE2A9dhFUv
+      /pOWZ5q2J761ITd2V3HxDkGctN1MRBbpbfTirkUXkxJ1bYq8TCc=
+  - secure: |-
+      fBFUy2v7oeo4BYsTfDSM1dUMMkw5I0uckthI1ONA0MzeIPaOFsHmtpedWYPE
+      wiDAP3PHpo8wPSLq29n1i+q/WnrMkgD6Q44TxhxsI8zCggxziwMDDgmyd/0M
+      9l7Ll8OeioCTMrcuwLHb77IL10BwCzQMlRpY8Shzdwu6qP/ktfA=
+  - secure: |-
+      W7cawPvpgjbAIhLBbB4t9swHnjAmeCA0g9Pzhx+8xgKP+uIduVDRHZeCsDek
+      8yD5SfRNC1HB95L0jQV00+mGglYV1tJoXqofxVbVngFAFd7h4cNuZi3Bx69o
+      IJCHm4D0tiv6GpyAqwEfdwgixg/7YUaTmSN+Fb9+3xRHGas9WZA=
+  - secure: |-
+      VHjpi7LnIR0cq4cMGXfmfRQutqX/yxaCiy8o3zp6ll5EwlB0+ue1iID0/2Wd
+      nk+FsKPF/hyG+kfLBbq+YoMOaSvXTb7brqjMkA1D67aPloIfJYrpW5Ani0Xy
+      dfGyKoqro8koPbx9SXqgJThO4uIex3Oh+OdCbHKcEQGg8Bgicfg=
+  - secure: |-
+      W+jABsevku6bTqq2ZfEPVhcgyM0gvVm/fG8uY5myK9PqK6V83MFub7n+sGSt
+      0S8mLwyFjkqfWjyFunFrmXhOsALXUdGzFlS8l8nXOS9C+/CjwEL36YbCRRP2
+      YC15eI7tZVMUPHt1BZyGikwrfeEEA1KPjoqw/Uh2iah6WjviFGc=
+  - secure: |-
+      Pd0CzjAj+Ch2fRYAKYP54yljmz/Au8ueYntsu9LA304meT2kBbpYlp+Jaqt+
+      LAi/GXgLbZFZejuJNTp3kknB9yEVzRst30tojIvTEt2GnZ1MgWRpy6sAeMKI
+      3yAL7unLYFSdJDegC/X3qvhiYVURfsaSpHytBQEkI8uCsc/4+k4=
+  - secure: |-
+      eOM+if1NEL7wqSv/RnAnW4FpKzHiIyWxp1yoBn21bYYQjk73q40+5DTiuKA9
+      SS3QKVVwdoirO5FcN4PQWH/5IDFCsoSWD3T5jUBHgi1RJgJNrK+EHYolA5mh
+      wlnRgvdzzJnmigi0ChIAZMW9IcN94P+mVXqcE2oIVWwkDOPWT24=
+  - secure: |-
+      k1Dw3FPkeZDmhRusMQW6FtojnjSK1xIJaoam3z/p18hl5UsChJLk250V9LIi
+      bUYwSnX1H2l5dk2L/6MC7CHuZnvRFlLQG4uJz5QgPydM0WLGE/bRDn46Fwim
+      jI9Ti11NShe1FOTuzd1NUpas0IT/eKGeh2eu4HKvHvIrCLWEvHk=
+  - secure: |-
+      AKt1dNPMCW7gTfwE/lHDHd2dN00p1KHS7ZZgDfNiWpKCe3ZLEjC1Y/L70iKq
+      PKA+wUyTuYg7MSxnUQfp9inmMWge+ybwWry+sBU85l4k1jPKTC3pxxTu1Oxs
+      1nONabLec3KmhqcMX63B2f4mKm5wwQ6IQ3IMPf+qeRgX+AqggT4=
+  - secure: |-
+      veQElj8C8c6XttZmDe7nu//fK3lkf44T1yeWazQgkHXVi0t1jxpX3tdoAZ+o
+      9xZBbUiDeY1HAxib8GELal75kHCk+C0DalYGXi3mCyOFUQKQXFImGx5ZREOk
+      PegKj4MfOnp11tXsQj4VwOWwHKPWaYdB4dP3EJgKM96z8c7kZ7U=
+  - secure: |-
+      PuiCZplwzpU7FtBSOGARrGGXkHoth5TYd2bWL4NHEpR9b1jy7JEXwK02qhcu
+      tIs7FlCzBPccm52hXqp2frJax5R9/CXCuicNpmYOB8PpJaDfeZcsup1YXf+S
+      ecc9EDTUtIsy0CKrMOC2H7dmu+z15BKGb8WHQ64nmdZKoDBYxOU=
+  - secure: |-
+      vedYhsjAOEXp1eVqXVid4PhmzclZKx0DAPvhjOhqMJLbi02ERMlZglFSyc5v
+      0hhAEBMtSNHAyDEAyN1O5E/4BFrQ2cz9cIwl/080pz06dZkd0YCpMDi2FPBt
+      zjM1hge3KSApcvT6Z8B4hXAZjBE9KB36J8yTU4H0k+k3VWEAlS8=
+  - secure: |-
+      mPlxOKLfO5x3mBzx/pRBJM0zGSMxoZf+UTu5MhrqIxNECos3mRZvp+I9PISO
+      qSXi1HbJ/a+vpNIdCSD2BO/E1LoZRcaAEN43asSAhlu7rUL0ScLYcXB3aclP
+      TlrtbYI6A9xItDT8aP6v7wE+06MEDeP0nn2KEY/9vX0C9ofvQvg=
+  - secure: |-
+      pm2tRDyvJyIFZJ/3fzfUjLtdecAw/QFq6MQUr+9uZJayUKthLahh20n9HAdp
+      DFlpUz6ExK+fi6MxkfEenQCqbpoKwxWEkUJ3HGyqUO47Xe0Px5sTrHtVKv+d
+      Bb9rsRQjH3aHdKqXsg878lwoOb/LiZ5CJn3VILNH6xTUS+mRUBA=
+  - secure: |-
+      nx8AUgSJkZwvUbDHavD+98cX2j7qw+vUaJDsHvexE5mqGzxhdspwVFry59tV
+      shX6qsbML13DmZRocTx6zRaCouGVt/6TlsMtzOxADWfMk/4WqaVzYOcnowf7
+      +m8H9UedPJM/gyv8srNT8Mhk7uwhPTGMSdyvKgybQrVtNdIlqws=
+  - secure: |-
+      UKojzhF/A1NP1J/Apy5wRiJ2uiTkhZSXk756HW0ig//vXA+SxJEg14oi0DpS
+      WJwaqH1jx/YbNopsyIJPd6C42/0FuUL+5PRsoSj9OlP81Fz4AyyrrFjDBgSt
+      wTuC31NJytysnw6OUFheJSg9j2n4+XA2TrC18ygZcMMcGErzubo=
+  - secure: |-
+      IDCpbP+GsrBGcVoo6UaFCexifQk1C7v/RBmydimxyr97kyo7BcDU40IWqkTK
+      nQy4cjXyF8sohGHf7vZVdjtsDcCWBFwv9yf4dz/xDc+fcYJxzmEqSEkH1yiM
+      16rwhJii4ApDqNbI+rDLvCaD+oN87mQvr5AAcHzLUVGHD1gUBgQ=
+  - secure: |-
+      Z2BVlng3PsI6wn+vvWqgkmQ6MBcv+Wtk76wQxw2t7kFpx/aqASdScmInigRd
+      UmJ4l82wmctpBd4EF6OScuuTqIIO2TIOjwAkY9d5UzP1ePGsVixJbLpTl3+S
+      qjcQhXBYXESyGcrvxreM6HY+3JInd/PAQPxWwtPLIkLDbqfVFXk=
+  - secure: |-
+      eEBYiBQzW0qORFjnMMC5yB5OKPjA2mdRnCc3+u1XBfreq84QVuorRR4MCguN
+      yH8PmliSj4HGcHNdbw5SD+Aasq84PJUXOYrNgA0IuiSwggZZ4IZTxZ3fpx3s
+      DTtSTwkyiOM4MCOfWxX56f894ls2rt4zddQxKCwCG7x0xpKQr4k=
+  - secure: |-
+      KGsXvcKJwAxl9pOoY8YArIFUt9hH7TM6V2Dj2DcHDPDY5OlBjc+ufTXY1Ryt
+      YPMPMiSYu6b+zdBF5QZQAmdubWW1ALxHVrcx9niAaI9eDxpzydZCBHgnAAU9
+      wVLyDoHBZofRwiE88Qm2D0gVA80U3mFmexJcu5Kig5YNmDghbwk=
 
+after_success: bash builddocsontravis.sh

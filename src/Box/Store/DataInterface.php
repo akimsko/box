@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class StoreDataInterface {
+interface StoreDataInterface {
 	/**
 	 * Get a data package from id.
 	 * 
@@ -38,14 +38,18 @@ class StoreDataInterface {
 	
 	/**
 	 * Persist a data object.
-	 * 
+	 *
+	 * @param DataObjectInterface $dataObject
+	 *
 	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject);
 	
 	/**
 	 * Persist a data object collection.
-	 * 
+	 *
+	 * @param DataObjectCollection $dataObjects
+	 *
 	 * @throws StoreException
 	 */
 	public function persistAll(DataObjectCollection $dataObjects);
