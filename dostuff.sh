@@ -2,8 +2,8 @@
 chmod a+rwx git_ssh_command
 export GIT_SSH=`pwd`"/git_ssh_command"
 php makekeyfile.php
-sudo pear channel-discover pear.phpdoc.org
-sudo pear install phpdoc/phpDocumentor-alpha
+pear channel-discover pear.phpdoc.org
+pear install phpdoc/phpDocumentor-alpha
 composer install --dev
 cd ~
 git config --global user.name "Travis"
