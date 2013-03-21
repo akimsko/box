@@ -94,7 +94,7 @@ class TokenNativePseudo implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function in(TokenConditionIn $token, TokenBase $previous = null) {
-		return "\t{$token->property} IN [" . implode(',', $token->value) . ']';
+		return "\t{$token->property} IN [" . implode(',', is_array($token->value) ? $token->value : array()) . ']';
 	}
 
 	/**
@@ -151,7 +151,7 @@ class TokenNativePseudo implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function notIn(TokenConditionNotIn $token, TokenBase $previous = null) {
-		return "\t{$token->property} NOT IN [" . implode(',', $token->value) . ']';
+		return "\t{$token->property} NOT IN [" . implode(',', is_array($token->value) ? $token->value : array()) . ']';
 	}
 
 	/**

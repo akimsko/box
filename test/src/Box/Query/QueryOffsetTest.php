@@ -29,6 +29,6 @@ class QueryOffsetTest extends \PHPUnit_Framework_TestCase {
 	 * @covers Box\QueryOffset::offset
 	 */
 	public function testOffset() {
-		$this->assertNull($this->object->offset(42));
+		$this->assertTrue($this->object->offset(42) instanceof QueryBase);
 	}
 }
