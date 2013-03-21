@@ -13,7 +13,7 @@ git clone git@github.com:akimsko/box.wiki.git
 cd box.wiki
 mkdir Api
 git rm Api/*
-phpdoc parse -t . -d ~/box/src
-phpdocmd structure.xml Api
+/usr/bin/phpdoc parse -t . -d ~/box/src
+/usr/bin/phpdocmd structure.xml Api
 git add Api/*
 git commit -m "Updated documentation." && git push

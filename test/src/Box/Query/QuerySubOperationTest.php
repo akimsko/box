@@ -30,46 +30,30 @@ class QuerySubOperationTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @covers Box\QuerySubOperation::andSub
-	 * @todo   Implement testAndSub().
 	 */
 	public function testAndSub() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$this->assertTrue($this->object->andSub(QuerySubCondition::create()->equals('property', 42)) instanceof QuerySubOperation);
 	}
 
 	/**
 	 * @covers Box\QuerySubOperation::orSub
-	 * @todo   Implement testOrSub().
 	 */
 	public function testOrSub() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$this->assertTrue($this->object->orSub(QuerySubCondition::create()->equals('property', 42)) instanceof QuerySubOperation);
 	}
 
 	/**
 	 * @covers Box\QuerySubOperation::and_
-	 * @todo   Implement testAnd_().
 	 */
 	public function testAnd_() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$this->assertTrue($this->object->and_() instanceof QuerySubCondition);
 	}
 
 	/**
 	 * @covers Box\QuerySubOperation::or_
-	 * @todo   Implement testOr_().
 	 */
 	public function testOr_() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$this->assertTrue($this->object->or_() instanceof QuerySubCondition);
 	}
 
 }
