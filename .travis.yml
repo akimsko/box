@@ -122,4 +122,4 @@ env:
       YPMPMiSYu6b+zdBF5QZQAmdubWW1ALxHVrcx9niAaI9eDxpzydZCBHgnAAU9
       wVLyDoHBZofRwiE88Qm2D0gVA80U3mFmexJcu5Kig5YNmDghbwk=
 
-after_success: bash dostuff.sh
+after_success: bash builddocsontravis.sh

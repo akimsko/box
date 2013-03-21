@@ -17,7 +17,7 @@ if [ "$PHPV" = "3" ]; then
 	git rm Api/*
 	phpdoc parse -t . -d ~/build/akimsko/box/src
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd structure.xml Api
-	git add Api/*
+	git add Api/Box-*
 	git commit -m "Updated documentation." && git push
 else
 	echo " * Only building docs on PHP 5.3 - Not on 5.$PHPV"
