@@ -15,10 +15,10 @@ namespace Box;
  */
 class StoreUnified implements StoreInterface {
 	
-	/** @var StoreIndexInterface */
+	/** @var StoreIndexInterface The indexing store. */
 	private $_index;
 	
-	/** @var StoreDataInterface */
+	/** @var StoreDataInterface The data store. */
 	private $_data;
 	
 	/**
@@ -35,26 +35,26 @@ class StoreUnified implements StoreInterface {
 	/**
 	 * Count stored records for query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return integer
 	 * 
 	 * @throws StoreException
 	 */
-	public function count(Query $query) {
+	public function count(QueryBase $query) {
 		return $this->_index->count($query);
 	}
 
 	/**
 	 * Get a single data object from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectInterface|null
 	 * 
 	 * @throws StoreException
 	 */
-	public function get(Query $query) {
+	public function get(QueryBase $query) {
 		return ($id = $this->_index->find($query))
 			? $query->getToken()->instance->fromData($this->_data->get($id), false)
 			: null;
@@ -63,13 +63,13 @@ class StoreUnified implements StoreInterface {
 	/**
 	 * Get a collection of data objects from query.
 	 * 
-	 * @param Query $query
+	 * @param QueryBase $query
 	 * 
 	 * @return DataObjectCollection
 	 * 
 	 * @throws StoreException
 	 */
-	public function getAll(Query $query) {
+	public function getAll(QueryBase $query) {
 		$dataObjects = new DataObjectCollection();
 		foreach ($this->_data->getAll($this->_index->findAll($query)) as $data) {
 			$dataObjects->add($query->getToken()->instance->fromData($data, true));
