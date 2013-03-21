@@ -13,8 +13,8 @@ if [ "$PHPV" = "3" ]; then
 	git config --global user.email "noreply@travis-ci.org"
 	git clone git@github.com:akimsko/box.wiki.git
 	cd box.wiki
-	mkdir Api
 	git rm Api/*
+	mkdir Api
 	phpdoc parse -t . -d ~/build/akimsko/box/src
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd structure.xml Api
 	git add Api/Box-*
