@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Jens Riisom Schultz <jens@unpossiblesystems.dk>
  */
-abstract class QueryBase implements QueryInterface {
+class QueryBase {
 	/** @var QueryBase The child query element of this query element. */
 	protected $_child;
 
