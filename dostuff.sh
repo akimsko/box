@@ -16,7 +16,7 @@ if [ "$PHPV" = "3" ]; then
 	mkdir Api
 	git rm Api/*
 	phpdoc parse -t . -d ~/build/akimsko/box/src
-	phpdocmd structure.xml Api
+	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd structure.xml Api
 	git add Api/*
 	git commit -m "Updated documentation." && git push
 else
