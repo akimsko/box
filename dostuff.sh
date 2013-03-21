@@ -5,6 +5,7 @@ php makekeyfile.php
 pear channel-discover pear.phpdoc.org
 pear install phpdoc/phpDocumentor-alpha
 composer install --dev
+phpenv rehash
 cd ~
 git config --global user.name "Travis"
 git config --global user.email "noreply@travis-ci.org"
