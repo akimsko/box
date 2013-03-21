@@ -95,9 +95,9 @@ interface QueryInterfaceCondition {
 	 * Set the condition that a property must be equal to any value in a given set.
 	 *
 	 * @param string                               $property The property you want to set a condition on.
-	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should be equal to any of to satisfy the condition.
+	 * @param string[]|float[]|boolean[]|integer[] $values    The values the property should be equal to any of to satisfy the condition.
 	 */
-	public function in($property, $value);
+	public function in($property, array $values);
 
 	/**
 	 * Set the condition that a property must not be equal to any value in a given set.
@@ -105,5 +105,5 @@ interface QueryInterfaceCondition {
 	 * @param string                               $property The property you want to set a condition on.
 	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should not be equal to any of to satisfy the condition.
 	 */
-	public function notIn($property, $value);
+	public function notIn($property, array $values);
 }

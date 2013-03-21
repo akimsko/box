@@ -204,12 +204,12 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	 * Set the condition that a property must be equal to any value in a given set.
 	 *
 	 * @param string                               $property The property you want to set a condition on.
-	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should be equal to any of to satisfy the condition.
+	 * @param string[]|float[]|boolean[]|integer[] $values    The values the property should be equal to any of to satisfy the condition.
 	 *
 	 * @return QueryOperation
 	 */
-	public function in($property, $value) {
-		$this->_token = $this->_aggregate->in($property, $value);
+	public function in($property, array $values) {
+		$this->_token = $this->_aggregate->in($property, $values);
 
 		$this->_child        = new QueryOperation();
 		$this->_child->_root = $this->_root;
@@ -221,12 +221,12 @@ class QuerySubCondition extends QueryBase implements QueryInterfaceCondition {
 	 * Set the condition that a property must not be equal to any value in a given set.
 	 *
 	 * @param string                               $property The property you want to set a condition on.
-	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should not be equal to any of to satisfy the condition.
+	 * @param string[]|float[]|boolean[]|integer[] $values    The values the property should not be equal to any of to satisfy the condition.
 	 *
 	 * @return QueryOperation
 	 */
-	public function notIn($property, $value) {
-		$this->_token = $this->_aggregate->notIn($property, $value);
+	public function notIn($property, array $values) {
+		$this->_token = $this->_aggregate->notIn($property, $values);
 
 		$this->_child        = new QueryOperation();
 		$this->_child->_root = $this->_root;

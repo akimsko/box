@@ -168,14 +168,14 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	 * Set the condition that a property must be equal to any value in a given set.
 	 *
 	 * @param string                               $property The property you want to set a condition on.
-	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should be equal to any of to satisfy the condition.
+	 * @param string[]|float[]|boolean[]|integer[] $values    The values the property should be equal to any of to satisfy the condition.
 	 *
 	 * @return TokenConditionIn
 	 */
-	public function in($property, $value) {
+	public function in($property, array $values) {
 		$token = new TokenConditionIn();
 		$token->property = $property;
-		$token->value = $value;
+		$token->value = $values;
 
 		return $token;
 	}
@@ -184,14 +184,14 @@ class QueryAggregateCondition implements QueryInterfaceCondition {
 	 * Set the condition that a property must not be equal to any value in a given set.
 	 *
 	 * @param string                               $property The property you want to set a condition on.
-	 * @param string[]|float[]|boolean[]|integer[] $value    The values the property should not be equal to any of to satisfy the condition.
+	 * @param string[]|float[]|boolean[]|integer[] $values    The values the property should not be equal to any of to satisfy the condition.
 	 *
 	 * @return TokenConditionNotIn
 	 */
-	public function notIn($property, $value) {
+	public function notIn($property, array $values) {
 		$token = new TokenConditionNotIn();
 		$token->property = $property;
-		$token->value = $value;
+		$token->value = $values;
 
 		return $token;
 	}
