@@ -19,7 +19,7 @@ if [ "$PHPV" = "3" ]; then
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd --lt "%c" structure.xml Api
 	git add Api/Box-*
 	cp ~/build/akimsko/box/tests.out .
-	php ~/build/akimsko/box/src/maketestreport.php
+	php ~/build/akimsko/box/maketestreport.php
 	git add TestReport.md
 	git commit -m "Updated documentation." && git push
 else
