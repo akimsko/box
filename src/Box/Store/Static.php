@@ -50,6 +50,8 @@ class StoreStatic implements StoreInterface {
 	 * Get the namespaced store.
 	 * 
 	 * @param string $namespace
+	 *
+	 * @return Data[]
 	 */
 	private static function &_getStore($namespace) {
 		if (!isset(self::$_dataStore[$namespace])) {
@@ -136,7 +138,8 @@ class StoreStatic implements StoreInterface {
 	}
 	
 	/**
-	 * 
+	 * Create a result set.
+	 *
 	 * @param QueryInterface $query
 	 * 
 	 * @return Data[]
