@@ -18,6 +18,9 @@ if [ "$PHPV" = "3" ]; then
 	phpdoc parse -t . -d ~/build/akimsko/box/src
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd --lt "%c" structure.xml Api
 	git add Api/Box-*
+	cp ~/build/akimsko/box/tests.out .
+	php ~/build/akimsko/box/src/maketestreport.php
+	git add TestReport.md
 	git commit -m "Updated documentation." && git push
 else
 	echo " * Only building docs on PHP 5.3 - Not on 5.$PHPV"
