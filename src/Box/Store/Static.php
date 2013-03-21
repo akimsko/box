@@ -16,7 +16,7 @@ namespace Box;
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
 class StoreStatic implements StoreInterface {
-	/** @var Data[] The data store. */
+	/** @var (Data[])[] The data store. */
 	private static $_dataStore = array();
 	
 	/** @var TokenNativeStoreStatic The native token translator. */
