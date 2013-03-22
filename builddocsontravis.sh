@@ -20,7 +20,7 @@ if [ "$PHPV" = "3" ]; then
 	git add Api/Box-*
 	cp ~/build/akimsko/box/tests.out .
 	php ~/build/akimsko/box/maketestreport.php
-	git add TestReport.md
+	git add Test-report.md
 	git commit -m "Updated documentation." && git push
 else
 	echo " * Only building docs on PHP 5.3 - Not on 5.$PHPV"

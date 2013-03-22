@@ -31,4 +31,4 @@ Coverage:
 
 TEMPLATE;
 
-file_put_contents('TestReport.md', $report);
+file_put_contents('Test-report.md', $report);
