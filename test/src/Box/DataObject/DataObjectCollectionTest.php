@@ -11,7 +11,7 @@ class DataObjectCollectionTest extends \PHPUnit_Framework_TestCase implements Da
 	 * @covers Box\DataObjectCollection::__construct
 	 */
 	public function testConstruct() {
-		$docEmpty = new DataObjectCollection();
+		$docEmpty = new DataObjectCollection($this);
 		$this->assertTrue($docEmpty instanceof DataObjectCollection);
 		
 		$dos = array(
@@ -20,7 +20,7 @@ class DataObjectCollectionTest extends \PHPUnit_Framework_TestCase implements Da
 			new self(),
 		);
 		
-		$doc = new DataObjectCollection($dos);
+		$doc = new DataObjectCollection($this, $dos);
 		$this->assertCount(3, $doc);
 		
 		return $docEmpty;
@@ -30,7 +30,7 @@ class DataObjectCollectionTest extends \PHPUnit_Framework_TestCase implements Da
 	 * @covers Box\DataObjectCollection::add
 	 */
 	public function testAdd() {
-		$doc = new DataObjectCollection();
+		$doc = new DataObjectCollection($this);
 		$doc->add($this);
 		$this->assertCount(1, $doc);
 		return $doc;
@@ -49,7 +49,7 @@ class DataObjectCollectionTest extends \PHPUnit_Framework_TestCase implements Da
 	 * @covers Box\DataObjectCollection::addAll
 	 */
 	public function testAddAll() {
-		$doc = new DataObjectCollection();
+		$doc = new DataObjectCollection($this);
 		$dos = array(
 			new self(),
 			new self(),

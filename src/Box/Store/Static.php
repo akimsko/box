@@ -126,7 +126,7 @@ class StoreStatic implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function getAll(QueryBase $query) {
-		$datas = new DataObjectCollection();
+		$datas = new DataObjectCollection($query->getToken()->instance);
 		$result = $this->_createResultSet($query);
 		
 		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {

@@ -69,6 +69,7 @@ class StoreStaticTest extends \PHPUnit_Framework_TestCase implements DataObjectI
 	 */
 	public function testPersistAll() {
 		$doc = new DataObjectCollection(
+			$this,
 			array(
 				new self(),
 				new self(),

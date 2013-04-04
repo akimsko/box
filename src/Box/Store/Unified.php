@@ -70,7 +70,8 @@ class StoreUnified implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function getAll(QueryBase $query) {
-		$dataObjects = new DataObjectCollection();
+		$class = get_class($query->getToken()->instance);
+		$datas = new DataObjectCollection($class);
 		foreach ($this->_data->getAll($this->_index->findAll($query)) as $data) {
 			$dataObjects->add($query->getToken()->instance->fromData($data, true));
 		}

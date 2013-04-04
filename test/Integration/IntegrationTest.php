@@ -85,7 +85,8 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
 		foreach ($this->_stores as $store) {
 			$store->truncate($dataSet[0]);
 			$this->assertSame(0, $store->count(Query::create($dataSet[0])));
-			$store->persistAll(new DataObjectCollection($dataSet));
+			
+			$store->persistAll(new DataObjectCollection($dataSet[0], $dataSet));
 			
 			$results = $store->getAll($query);
 			$this->assertCount(count($resultIds), $results);

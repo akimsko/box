@@ -93,7 +93,7 @@ $datas = array(
 );
 
 $protolol = new lol();
-$fixture = new Box\DataObjectCollection();
+$fixture = new Box\DataObjectCollection(get_class($protolol));
 foreach ($datas as $data) {
 	$fixture->add($protolol->fromData($data));
 }
