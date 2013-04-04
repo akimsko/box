@@ -18,6 +18,8 @@ interface StoreBaseInterface {
 	 * Persist a single data object.
 	 * 
 	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject);
 	
@@ -25,6 +27,8 @@ interface StoreBaseInterface {
 	 * Persist a collection of data objects.
 	 * 
 	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @throws StoreException
 	 */
 	public function persistAll(DataObjectCollection $dataObjects);
 	
@@ -32,6 +36,10 @@ interface StoreBaseInterface {
 	 * Delete a data object from store.
 	 * 
 	 * @param DataObjectInterface $dataObject
+	 * 
+	 * @return integer Number of deleted entries.
+	 * 
+	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject);
 	
@@ -39,6 +47,10 @@ interface StoreBaseInterface {
 	 * Delete a collection of data objects from store.
 	 * 
 	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @return integer Number of deleted entries.
+	 * 
+	 * @throws StoreException
 	 */
 	public function deleteAll(DataObjectCollection $dataObjects);
 	
@@ -46,6 +58,8 @@ interface StoreBaseInterface {
 	 * Remove all records of the given type.
 	 * 
 	 * @param DataObjectInterface $type
+	 * 
+	 * @throws StoreException
 	 */
 	public function truncate(DataObjectInterface $type);
 }
