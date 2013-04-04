@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-interface StoreIndexInterface {
+interface StoreIndexInterface extends StoreBaseInterface {
 	/**
 	 * Find a single id from query.
 	 *
@@ -23,7 +23,7 @@ interface StoreIndexInterface {
 	 * 
 	 * @throws StoreException
 	 */
-	public function find(Query $query);
+	public function getId(Query $query);
 	
 	/**
 	 * Find ids from query.
@@ -34,44 +34,8 @@ interface StoreIndexInterface {
 	 * 
 	 * @throws StoreException
 	 */
-	public function findAll(Query $query);
-	
-	/**
-	 * Index a data object.
-	 *
-	 * @param DataObjectInterface $dataObject
-	 *
-	 * @throws StoreException
-	 */
-	public function index(DataObjectInterface $dataObject);
-	
-	/**
-	 * Index a data object collection.
-	 *
-	 * @param DataObjectCollection $dataObjects
-	 *
-	 * @throws StoreException
-	 */
-	public function indexAll(DataObjectCollection $dataObjects);
-	
-	/**
-	 * Remove an index.
-	 *
-	 * @param DataObjectInterface $dataObject
-	 *
-	 * @throws StoreException
-	 */
-	public function remove(DataObjectInterface $dataObject);
-	
-	/**
-	 * Remove indexes from collection.
-	 *
-	 * @param DataObjectCollection $dataObjects
-	 *
-	 * @throws StoreException
-	 */
-	public function removeAll(DataObjectCollection $dataObjects);
-	
+	public function getAllIds(Query $query);
+
 	/**
 	 * Count entries for query.
 	 *

@@ -13,7 +13,7 @@ namespace Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-interface StoreInterface {
+interface StoreInterface extends StoreBaseInterface {
 	/**
 	 * Get a single data object from query.
 	 * 
@@ -35,41 +35,6 @@ interface StoreInterface {
 	 * @throws StoreException
 	 */
 	public function getAll(QueryBase $query);
-	
-	/**
-	 * Persist a single data object.
-	 * 
-	 * @param DataObjectInterface $dataObject
-	 */
-	public function persist(DataObjectInterface $dataObject);
-	
-	/**
-	 * Persist a collection of data objects.
-	 * 
-	 * @param DataObjectCollection $dataObjects
-	 */
-	public function persistAll(DataObjectCollection $dataObjects);
-	
-	/**
-	 * Delete a data object from store.
-	 * 
-	 * @param DataObjectInterface $dataObject
-	 */
-	public function delete(DataObjectInterface $dataObject);
-	
-	/**
-	 * Delete a collection of data objects from store.
-	 * 
-	 * @param DataObjectCollection $dataObjects
-	 */
-	public function deleteAll(DataObjectCollection $dataObjects);
-	
-	/**
-	 * Remove all records of the given type.
-	 * 
-	 * @param DataObjectInterface $type
-	 */
-	public function truncate(DataObjectInterface $type);
 	
 	/**
 	 * Count stored records for query.
