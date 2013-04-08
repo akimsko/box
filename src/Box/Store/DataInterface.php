@@ -17,22 +17,24 @@ interface StoreDataInterface extends StoreBaseInterface {
 	/**
 	 * Get a data package from id.
 	 * 
-	 * @param integer $id
+	 * @param integer             $id
+	 * @param DataObjectInterface $type
 	 * 
-	 * @return array
+	 * @return DataObjectInterface|null
 	 * 
 	 * @throws StoreException
 	 */
-	public function getById($id);
+	public function getById($id, DataObjectInterface $type);
 	
 	/**
 	 * Get data packages from ids.
 	 * 
-	 * @param integer[] $ids
+	 * @param integer[]           $ids
+	 * @param DataObjectInterface $type
 	 * 
-	 * @return array[]
+	 * @return DataObjectCollection
 	 * 
 	 * @throws StoreException
 	 */
-	public function getAllByIds(array $ids);
+	public function getAllByIds(array $ids, DataObjectInterface $type);
 }
