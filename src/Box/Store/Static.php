@@ -19,16 +19,14 @@ class StoreStatic implements StoreInterface {
 	/** @var (Data[])[] The data store. */
 	private static $_dataStore = array();
 	
-	/** @var TokenNativeStoreStatic The native token translator. */
-	private static $_translator;
-	
 	/**
 	 * Get the native token translator.
 	 * 
 	 * @return TokenNativeStoreStatic
 	 */
 	private static function _getTranslator() {
-		return self::$_translator ? self::$_translator : self::$_translator = new TokenNativeStoreStatic();
+		static $translator;
+		return $translator ? $translator : $translator = new TokenNativeStoreStatic();
 	}
 
 
