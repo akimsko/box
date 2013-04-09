@@ -15,7 +15,7 @@ namespace Box;
  */
 class StoreDataMysql implements StoreDataInterface {
 	
-	/** @var PDO Database connection. */
+	/** @var \PDO Database connection. */
 	private $_pdo;
 	
 	/**
@@ -37,7 +37,7 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject) {
-		$table = get_class($dataObject);
+		$table = TokenNativeMysql::getTableName($dataObject);
 		$statement = $this->_pdo->prepare("DELETE FROM `{$table}` WHERE `id` = :id");
 		
 		if (!$statement->execute(array('id' => $dataObject->getId()))) {
@@ -57,7 +57,7 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function deleteAll(DataObjectCollection $dataObjects) {
-		$table = $dataObjects->getType();
+		$table = TokenNativeMysql::getTableName($dataObjects->getType());
 		$in    = implode(',', $dataObjects->getIds());
 		
 		$statement = $this->_pdo->prepare("DELETE FROM `{$table}` WHERE `id` IN ({$in})");
@@ -80,7 +80,7 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function getAllByIds(array $ids, DataObjectInterface $type) {
-		$table = get_class($type);
+		$table = TokenNativeMysql::getTableName($type);
 		$in    = implode(',', $ids);
 		
 		$statement = $this->_pdo->prepare("SELECT * FROM `{$table}` WHERE `id` IN ({$in})");
@@ -117,7 +117,7 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function getById($id, DataObjectInterface $type) {
-		$table = get_class($type);
+		$table = TokenNativeMysql::getTableName($type);
 		
 		$statement = $this->_pdo->prepare("DELETE FROM `{$table}` WHERE `id` = :id");
 		
@@ -143,11 +143,11 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function persist(DataObjectInterface $dataObject) {
-		$table = get_class($dataObject);
+		$table = TokenNativeMysql::getTableName($dataObject);
 		
 		if ($dataObject->getId()) {
-			$statement = $this->_pdo->prepare("UPDATE `{$table}` SET `data` = :data WHERE `id` = : id");
-			if (!$statement->execute(array('data' => json_encode($dataObject->toData()), 'id' => $id))) {
+			$statement = $this->_pdo->prepare("REPLACE INTO `{$table}` SET `id` = :id, `data` = :data");
+			if (!$statement->execute(array('id' => $id, 'data' => json_encode($dataObject->toData())))) {
 				throw new StoreException('Data store returned an error: ' . implode(', ', $statement->errorInfo()));
 			}
 		} else {
@@ -182,7 +182,7 @@ class StoreDataMysql implements StoreDataInterface {
 	 * @throws StoreException
 	 */
 	public function truncate(DataObjectInterface $type) {
-		$table = get_class($type);
+		$table = TokenNativeMysql::getTableName($type);
 		$statement = $this->_pdo->prepare("TRUNCATE TABLE `{$table}`");
 		if (!$statement->execute()) {
 			throw new StoreException('Data store returned an error: ' . implode(', ', $statement->errorInfo()));

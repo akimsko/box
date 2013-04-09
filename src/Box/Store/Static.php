@@ -76,24 +76,57 @@ class StoreStatic implements StoreInterface {
 	 * 
 	 * @param DataObjectInterface $dataObject
 	 * 
+	 * @return integer Number of deleted entries.
+	 * 
 	 * @throws StoreException
 	 */
 	public function delete(DataObjectInterface $dataObject) {
 		$store = &self::_getStore(get_class($dataObject));
+		if (!array_key_exists($dataObject->getId(), $store)) {
+			return 0;
+		}
 		unset($store[$dataObject->getId()]);
+		return 1;
 	}
 
 	/**
 	 * Delete a collection of data objects from store.
 	 * 
 	 * @param DataObjectCollection $dataObjects
+	 * 
+	 * @return integer Number of deleted entries.
+	 * 
+	 * @throws StoreException
 	 */
 	public function deleteAll(DataObjectCollection $dataObjects) {
+		$count = 0;
 		foreach ($dataObjects as $dataObject) {
-			$this->delete($dataObject);
+			$count += $this->delete($dataObject);
 		}
+		return $count;
 	}
 
+	/**
+	 * Inflate a data object from row.
+	 * 
+	 * @param array               $row
+	 * @param DataObjectInterface $type
+	 * 
+	 * @return DataObjectInterface
+	 * 
+	 * @throws StoreException
+	 */
+	private function _inflate($row, DataObjectInterface $type) {
+		if (!isset($row['id'])) {
+			throw new StoreException('No id column could be found for ' . get_class($type) . '.');
+		}
+		
+		$item = $type::fromData($row);
+		$item->setId($row['id']);
+		
+		return $item;
+	}
+	
 	/**
 	 * Get a single data object from query.
 	 * 
@@ -104,14 +137,9 @@ class StoreStatic implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function get(QueryBase $query) {
-		$items = $this->_createResultSet($query);
-		$items = self::_applyOrderAndLimit($query->getToken(), $items);
-		if ($item = array_shift($items)) {
-			$item = $item->toArrayCopy();
-			$class = $query->getToken()->instance;
-			$item = $class::fromData($item, false);
-		}
-		return $item;
+		$results = $this->_createResultSet($query);
+		$results = self::_applyOrderAndLimit($query->getToken(), $results);
+		return ($result = array_shift($results)) ? $this->_inflate($result->toArrayCopy(), $query->getToken()->instance) : null;
 	}
 	
 	/**
@@ -124,13 +152,11 @@ class StoreStatic implements StoreInterface {
 	 * @throws StoreException
 	 */
 	public function getAll(QueryBase $query) {
-		$datas = new DataObjectCollection($query->getToken()->instance);
-		$result = $this->_createResultSet($query);
+		$datas   = new DataObjectCollection($query->getToken()->instance);
+		$results = $this->_createResultSet($query);
 		
-		foreach (self::_applyOrderAndLimit($query->getToken(), $result) as $item) {
-			$item = $item->toArrayCopy();
-			$class = $query->getToken()->instance;
-			$datas->add($class::fromData($item));
+		foreach (self::_applyOrderAndLimit($query->getToken(), $results) as $result) {
+			$datas->add($this->_inflate($result->toArrayCopy(), $query->getToken()->instance));
 		}
 		return $datas;
 	}
@@ -166,12 +192,14 @@ class StoreStatic implements StoreInterface {
 	public function persist(DataObjectInterface $dataObject) {
 		$namespace = get_class($dataObject);
 		
-		if (!is_integer($dataObject->getId())) {
+		if (!$dataObject->getId()) {
 			$dataObject->setId(self::_getNextIndex($namespace));
 		}
 
 		$store = &self::_getStore($namespace);
-		$store[$dataObject->getId()] = $dataObject->toData();
+		$data = $dataObject->toData();
+		$data['id'] = $dataObject->getId();
+		$store[$dataObject->getId()] = $data;
 	}
 
 	/**

@@ -14,37 +14,46 @@ namespace Box;
  */
 class IntegrationTest extends \PHPUnit_Framework_TestCase {
 	
-	/** @var StoreInterface[] */
-	protected $_stores;
+	/** @var StoreStatic */
+	protected $_storeStatic;
+	
+	/** @var StoreMysql */
+	protected $_storeMysql;
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->_stores = array(
-			new StoreStatic()
-		);
-		
-		$this->_dataSetSimple = array(
-			new TestSimpleDataObject(null, 'test1'),
-			new TestSimpleDataObject(2, 'test2'),
-			new TestSimpleDataObject(3, 'test3'),
-			new TestSimpleDataObject(4, 'test4'),
-		);
+		$this->_storeStatic = new StoreStatic();
+		$this->_storeMysql  = new StoreMysql(new \PDO('mysql:host=localhost;dbname=boxtest', 'boxtest', 'boxtest'));
+	}
+	
+	/**
+	 * @dataProvider queryProvider
+	 */
+	public function testStatic(array $dataSet, QueryBase $query, array $resultIds, $checkOrder) {
+		$this->_queriesAndResults($this->_storeStatic, $dataSet, $query, $resultIds, $checkOrder);
+	}
+	
+	/**
+	 * @dataProvider queryProvider
+	 */
+	public function testMysql(array $dataSet, QueryBase $query, array $resultIds, $checkOrder) {
+		$this->_queriesAndResults($this->_storeMysql, $dataSet, $query, $resultIds, $checkOrder);
 	}
 	
 	public function queryProvider() {
 		$dataSetSimple = array(
 			new TestSimpleDataObject(null, 'test1'),
-			new TestSimpleDataObject(2, 'test2'),
+			new TestSimpleDataObject(null, 'test2'),
 			new TestSimpleDataObject(3, 'test3'),
 			new TestSimpleDataObject(4, 'test4'),
 		);
 		
 		$dataSetTypes = array(
 			new TestTypesDataObject(null, 1, 'test1', 1.1, true, array(1,2,3), array('test1','test2','test3'), array(1.1,1.2,1.3), array(true, false)),
-			new TestTypesDataObject(2, 2, 'test2', 1.2, true, array(2,3,4), array('test2','test3','test4'), array(1.2,1.3,1.4), array(true, false, true)),
+			new TestTypesDataObject(null, 2, 'test2', 1.2, true, array(2,3,4), array('test2','test3','test4'), array(1.2,1.3,1.4), array(true, false, true)),
 			new TestTypesDataObject(3, 3, 'test3', 1.3, true, array(3,4,5), array('test3','test4','test5'), array(1.3,1.4,1.5), array(true, false, true, false)),
 			new TestTypesDataObject(4, 4, 'test4', 1.4, true, array(4,5,6), array('test4','test5','test6'), array(1.4,1.5,1.6), array(true, false, true, false, true)),
 		);
@@ -78,40 +87,51 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 	
-	/**
-	 * @dataProvider queryProvider
-	 */
-	public function testQueriesAndResults(array $dataSet, QueryBase $query, array $resultIds, $checkOrder) {
-		foreach ($this->_stores as $store) {
-			$store->truncate($dataSet[0]);
-			$this->assertSame(0, $store->count(Query::create($dataSet[0])));
-			
-			$store->persistAll(new DataObjectCollection($dataSet[0], $dataSet));
-			
-			$results = $store->getAll($query);
-			$this->assertCount(count($resultIds), $results);
-			
-			$classVars = array_keys((get_class_vars(get_class($dataSet[0]))));
-			
-			for ($i = 0; $i < count($results); $i++) {
-				if ($checkOrder) {
-					$this->assertSame($results->get($i)->getId(), $resultIds[$i]);
-				} else {
-					$this->assertContains($results->get($i)->getId(), $resultIds);
-				}
+	private function _queriesAndResults(StoreInterface $store, array $dataSet, QueryBase $query, array $resultIds, $checkOrder) {
+		$store->truncate($dataSet[0]);
+		$this->assertSame(0, $store->count(Query::create($dataSet[0])));
 
-				$result = $results->get($i);
-				$data = $dataSet[$result->getId() - 1];
-				foreach ($classVars as $name) {
-					$this->assertSame($result->$name, $data->$name);
-				}
+		$store->persistAll(new DataObjectCollection($dataSet[0], $dataSet));
+
+		$results = $store->getAll($query);
+		$this->assertCount(count($resultIds), $results);
+
+		$classVars = array_keys(get_class_vars(get_class($dataSet[0])));
+
+		for ($i = 0; $i < count($results); $i++) {
+			if ($checkOrder) {
+				$this->assertSame($results->get($i)->getId(), $resultIds[$i]);
+			} else {
+				$this->assertContains($results->get($i)->getId(), $resultIds);
+			}
+
+			$result = $results->get($i);
+			$data = $dataSet[$result->getId() - 1];
+			foreach ($classVars as $name) {
+				$this->assertSame($result->$name, $data->$name);
 			}
 		}
+		
+		$result = $store->get(Query::create($dataSet[0])->equals('id', $dataSet[0]->getId()));
+		$this->assertNotNull($result);
+		$this->assertSame($result->getId(), $dataSet[0]->getId());
+		
+		$result = $store->get(Query::create($dataSet[0])->equals('id', 13371337));
+		$this->assertNull($result);
+		
+		$resultsAll = $store->getAll(Query::create($dataSet[0]));
+		$store->delete($resultsAll->get(0));
+		$results = $store->getAll(Query::create($dataSet[0]));
+		$this->assertCount(count($resultsAll) - 1, $results);
+		
+		$store->deleteAll($resultsAll);
+		$results = $store->getAll(Query::create($dataSet[0]));
+		$this->assertCount(0, $results);
 	}
 }
 
 class TestSimpleDataObject implements DataObjectInterface {
-	public $id;
+	private $_id;
 	public $text;
 	
 	public function __construct($id = null, $text = null) {
@@ -120,28 +140,27 @@ class TestSimpleDataObject implements DataObjectInterface {
 	}
 
 	public function getId() {
-		return $this->id;
+		return $this->_id;
 	}
 
 	public function setId($id) {
-		$this->id = $id;
+		$this->_id = (int)$id;
 		return $this;
 	}
 		
 	public function toData() {
 		return new Data(array(
-			'id'    => $this->getId(),
 			'text'  => $this->text,
 		));
 	}
 
 	public static function fromData(array &$data) {
-		return new self($data['id'], $data['text']);
+		return new self(null, (string)$data['text']);
 	}
 }
 
 class TestTypesDataObject implements DataObjectInterface {
-	public $id;
+	private $_id;
 	public $int, $string, $float, $bool;
 	public $intA, $stringA, $floatA, $boolA;
 	
@@ -158,17 +177,16 @@ class TestTypesDataObject implements DataObjectInterface {
 	}
 
 	public function getId() {
-		return $this->id;
+		return $this->_id;
 	}
 
 	public function setId($id) {
-		$this->id = $id;
+		$this->_id = (int)$id;
 		return $this;
 	}
 		
 	public function toData() {
 		return new Data(array(
-			'id'      => $this->getId(),
 			'int'     => $this->int,
 			'string'  => $this->string,
 			'float'   => $this->float,
@@ -182,11 +200,11 @@ class TestTypesDataObject implements DataObjectInterface {
 
 	public static function fromData(array &$data) {
 		return new self(
-			$data['id'],
-			$data['int'],
-			$data['string'],
-			$data['float'],
-			$data['bool'],
+			null,
+			(int)$data['int'],
+			(string)$data['string'],
+			(float)$data['float'],
+			(bool)$data['bool'],
 			$data['intA'],
 			$data['stringA'],
 			$data['floatA'],

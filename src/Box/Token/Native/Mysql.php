@@ -87,7 +87,7 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 */
 	public function in(TokenConditionIn $token, TokenBase $previous = null) {
 		$in = "'" . implode("','", $token->value) . "'";
-		return "`{$token->property}` IN '{$in}'";
+		return "`{$token->property}` IN ({$in})";
 	}
 
 	/**
@@ -136,7 +136,7 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 */
 	public function notIn(TokenConditionNotIn $token, TokenBase $previous = null) {
 		$in = "'" . implode("','", $token->value) . "'";
-		return "`{$token->property}` NOT IN '{$in}'";
+		return "`{$token->property}` NOT IN ({$in})";
 	}
 
 	/**
@@ -210,7 +210,7 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function limit(TokenLimit $token, TokenBase $previous = null) {
-		return " LIMIT {$token->value}";
+		return " LIMIT {$token->limit}";
 	}
 
 	/**
@@ -222,7 +222,7 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function offset(TokenOffset $token, TokenBase $previous = null) {
-		return " OFFSET {$token->value}";
+		return " OFFSET {$token->offset}";
 	}
 
 	/**
@@ -234,7 +234,7 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function orderBy(TokenOrderBy $token, TokenBase $previous = null) {
-		return " ORDER BY {$token->value} {$token->direction}";
+		return " ORDER BY {$token->property} {$token->direction}";
 	}
 
 	/**
@@ -246,11 +246,20 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 * @return string The translated token.
 	 */
 	public function root(TokenRoot $token, TokenBase $previous = null) {
-		$table = get_class($token->instance);
+		$table = self::getTableName($token->instance);
 		$string = "SELECT * FROM `{$table}`";
 		if ($token->nextToken instanceof TokenCondition) {
 			$string .= ' WHERE ';
 		}
 		return $string;
+	}
+	
+	/**
+	 * Get table name for type.
+	 * 
+	 * @param DataObjectInterface $type
+	 */
+	public static function getTableName(DataObjectInterface $type) {
+		return str_replace('\\', '_', get_class($type));
 	}
 }

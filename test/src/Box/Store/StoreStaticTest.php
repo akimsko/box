@@ -60,7 +60,8 @@ class StoreStaticTest extends \PHPUnit_Framework_TestCase implements DataObjectI
 	 * @covers Box\StoreStatic::delete
 	 */
 	public function testDelete() {
-		$this->assertNull($this->object->delete($this));
+		$this->object->persist($this);
+		$this->assertEquals(1, $this->object->delete($this));
 		$this->assertNull($this->object->get(Query::create($this)->equals('id', $this->getId())));
 	}
 	
@@ -96,7 +97,7 @@ class StoreStaticTest extends \PHPUnit_Framework_TestCase implements DataObjectI
 	 * @depends testGetAll
 	 */
 	public function testDeleteAll(DataObjectCollection $doc) {
-		$this->assertNull($this->object->deleteAll($doc));
+		$this->assertEquals(3, $this->object->deleteAll($doc));
 		$this->assertCount(0, $this->object->getAll(Query::create($this)->in('id', $doc->getIds())));
 	}
 
