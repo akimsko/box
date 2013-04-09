@@ -17,7 +17,7 @@ class DataObjectCollection implements \IteratorAggregate, \Countable {
 	/** @var DataObjectInterface[] */
 	private $_dataObjects = array();
 	
-	/** @var string Class name of data objects this collection may contain. */
+	/** @var DataObjectInterface Type this collection may contain. */
 	private $_type;
 	
 	/**
@@ -27,14 +27,14 @@ class DataObjectCollection implements \IteratorAggregate, \Countable {
 	 * @param DataObjectInterface[] $dataObjects
 	 */
 	public function __construct(DataObjectInterface $type, array $dataObjects = array()) {
-		$this->_type = get_class($type);
+		$this->_type = $type;
 		$this->addAll($dataObjects);
 	}
 	
 	/**
 	 * Get the type of data objects this collection contains.
 	 * 
-	 * @return string
+	 * @return DataObjectInterface
 	 */
 	public function getType() {
 		return $this->_type;
@@ -62,7 +62,7 @@ class DataObjectCollection implements \IteratorAggregate, \Countable {
 	 * @return DataObjectCollection
 	 */
 	public function add(DataObjectInterface $dataObject) {
-		if (get_class($dataObject) != $this->_type) {
+		if (!$dataObject instanceof $this->_type) {
 			throw new Exception("Collection can only contain data objects of type {$this->_type}.");
 		}
 		$this->_dataObjects[] = $dataObject;
