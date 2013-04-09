@@ -260,6 +260,6 @@ class TokenNativeMysql implements TokenNativeInterface {
 	 * @param DataObjectInterface $type
 	 */
 	public static function getTableName(DataObjectInterface $type) {
-		return str_replace('\\', '_', get_class($type));
+		return str_replace('\\', '_', strtolower(get_class($type)));
 	}
 }
