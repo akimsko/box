@@ -15,7 +15,7 @@ namespace Box;
  *
  * @author Bo Thinggaard <bo@unpossiblesystems.dk>
  */
-class Data implements \ArrayAccess {
+class Data implements \ArrayAccess, \IteratorAggregate {
 	
 	/** @var array Property store. */
 	private $_properties = array();
@@ -169,7 +169,7 @@ class Data implements \ArrayAccess {
 	 * @return boolean Exists.
 	 */
 	public function offsetExists($offset) {
-		return isset($this->_properties[$offset]);
+		return array_key_exists($offset, $this->_properties);
 	}
 
 	/**
@@ -233,5 +233,14 @@ class Data implements \ArrayAccess {
 	 */
 	public function __set($name, $value) {
 		$this->_set($name, $value);
+	}
+
+	/**
+	 * Get an iterator.
+	 * 
+	 * @return \ArrayIterator
+	 */
+	public function getIterator() {
+		return new \ArrayIterator($this->_properties);
 	}
 }
