@@ -153,8 +153,10 @@ class StoreMysql implements StoreInterface {
 		$values = array();
 		
 		foreach ($dataObject->toData() as $field => $value) {
-			$set[]    = "`$field` = ?";
-			$values[] = is_array($value) ? json_encode($value) : $value;
+			if ($field != 'id') {
+				$set[]    = "`$field` = ?";
+				$values[] = is_array($value) ? json_encode($value) : $value;
+			}
 		}
 		$set = implode(', ', $set);
 		
