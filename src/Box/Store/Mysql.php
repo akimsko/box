@@ -160,7 +160,7 @@ class StoreMysql implements StoreInterface {
 		
 		if ($id = $dataObject->getId()) {
 			$values[]  = $id;
-			$statement = $this->_pdo->prepare("REPLACE `{$table}` SET {$set}, `id` = ?");
+			$statement = $this->_pdo->prepare("REPLACE INTO `{$table}` SET {$set}, `id` = ?");
 			
 			if (!$statement->execute($values)) {
 				throw new StoreException('Data store returned an error: ' . implode(', ', $statement->errorInfo()));
