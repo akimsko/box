@@ -15,7 +15,7 @@ if [ "$PHPV" = "3" ]; then
 	cd box.wiki
 	git rm Api/*
 	mkdir Api
-	phpdoc -t . -d ~/build/akimsko/phorm/src --visibility=public --template="xml"
+	phpdoc -t . -d ~/build/akimsko/box/src --visibility=public --template="xml"
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd --lt "%c" structure.xml Api
 	git add Api/Box-*
 	cp ~/build/akimsko/box/tests.out .
