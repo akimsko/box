@@ -5,7 +5,7 @@ if [ "$PHPV" = "3" ]; then
 	export GIT_SSH=`pwd`"/git_ssh_command"
 	php makekeyfile.php
 	pear channel-discover pear.phpdoc.org
-	pear install phpdoc/phpDocumentor-alpha
+	pear install phpdoc/phpDocumentor
 	composer install --dev
 	phpenv rehash
 	cd ~
@@ -15,7 +15,7 @@ if [ "$PHPV" = "3" ]; then
 	cd box.wiki
 	git rm Api/*
 	mkdir Api
-	phpdoc parse -t . -d ~/build/akimsko/box/src --visibility=public
+	phpdoc -t . -d ~/build/akimsko/phorm/src --visibility=public --template="xml"
 	~/build/akimsko/box/vendor/evert/phpdoc-md/bin/phpdocmd --lt "%c" structure.xml Api
 	git add Api/Box-*
 	cp ~/build/akimsko/box/tests.out .
